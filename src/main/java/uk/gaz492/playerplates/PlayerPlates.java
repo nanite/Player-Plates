@@ -16,7 +16,7 @@ import uk.gaz492.playerplates.util.ModInfo;
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, useMetadata = true)
 public class PlayerPlates {
 
-    @SidedProxy(clientSide = ModInfo.CLIENT_PROXY)
+    @SidedProxy(clientSide = ModInfo.CLIENT_PROXY, serverSide = ModInfo.SERVER_PROXY)
     public static CommonProxy proxy;
 
     public static CreativeTabs creativeTab = new CreativeTabs("player_plates") {
