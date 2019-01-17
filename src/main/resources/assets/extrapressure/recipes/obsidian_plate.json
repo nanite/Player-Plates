@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OO"
+  ],
+  "key": {
+    "O": [
+      {
+        "item": "minecraft:obsidian",
+        "data": 0
+      }
+    ]
+  },
+  "result": {
+    "item": "extrapressure:obsidian_plate",
+    "count": 1
+  }
+}
