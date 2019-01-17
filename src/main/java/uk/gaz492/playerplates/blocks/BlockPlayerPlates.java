@@ -5,29 +5,23 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import uk.gaz492.extrapressure.util.ModInfo;
 
 import java.util.List;
 
-public class BlockExtraPressure extends BlockBasePressurePlate {
+public class BlockPlayerPlates extends BlockBasePressurePlate {
 
     public static final PropertyBool POWERED = PropertyBool.create("powered");
-    public final BlockExtraPressure.Sensitivity sensitivity;
+    public final BlockPlayerPlates.Sensitivity sensitivity;
 
-    public BlockExtraPressure(BlockExtraPressure.Sensitivity sensitivity) {
+    public BlockPlayerPlates(BlockPlayerPlates.Sensitivity sensitivity) {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
 

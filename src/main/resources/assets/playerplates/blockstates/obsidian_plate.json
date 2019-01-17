@@ -7,7 +7,7 @@
     }
   },
   "variants": {
-    "powered=false": { "model": "extrapressure:obsidian_plate_up" },
-    "powered=true": { "model": "extrapressure:obsidian_plate_down" }
+    "powered=false": { "model": "playerplates:obsidian_plate_up" },
+    "powered=true": { "model": "playerplates:obsidian_plate_down" }
   }
 }

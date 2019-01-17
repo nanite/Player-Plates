@@ -1,4 +1,4 @@
-package uk.gaz492.extrapressure;
+package uk.gaz492.playerplates;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -10,24 +10,24 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
-import uk.gaz492.extrapressure.proxy.CommonProxy;
-import uk.gaz492.extrapressure.util.ModInfo;
+import uk.gaz492.playerplates.proxy.CommonProxy;
+import uk.gaz492.playerplates.util.ModInfo;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, useMetadata = true)
-public class ExtraPressure {
+public class PlayerPlates {
 
     @SidedProxy(clientSide = ModInfo.CLIENT_PROXY)
     public static CommonProxy proxy;
 
-    public static CreativeTabs creativeTab = new CreativeTabs("Extra Pressure") {
+    public static CreativeTabs creativeTab = new CreativeTabs("Player Plates") {
         @Override
         public ItemStack getTabIconItem() {
-            return new ItemStack(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE);
+            return new ItemStack(ModBlocks.OBSIDIAN_PLATE);
         }
     };
 
     @Mod.Instance
-    public static ExtraPressure instance;
+    public static PlayerPlates instance;
 
 
     private static Logger logger;

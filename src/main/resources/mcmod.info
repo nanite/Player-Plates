@@ -1,8 +1,8 @@
 [
 {
-  "modid": "extrapressure",
-  "name": "Extra Pressure",
-  "description": "Example placeholder mod.",
+  "modid": "playerplates",
+  "name": "Player Plates",
+  "description": "Adds more pressure plates to the game",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

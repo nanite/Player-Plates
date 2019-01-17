@@ -7,7 +7,7 @@
     }
   },
   "variants": {
-    "powered=false": { "model": "extrapressure:end_stone_plate_up" },
-    "powered=true": { "model": "extrapressure:end_stone_plate_down" }
+    "powered=false": { "model": "playerplates:end_stone_plate_up" },
+    "powered=true": { "model": "playerplates:end_stone_plate_down" }
   }
 }
