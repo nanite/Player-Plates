@@ -1,18 +1,15 @@
 package uk.gaz492.extrapressure;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import uk.gaz492.extrapressure.blocks.BlockPlateObsidian;
+import uk.gaz492.extrapressure.util.ModInfo;
 
+@GameRegistry.ObjectHolder(ModInfo.MOD_ID)
+@Mod.EventBusSubscriber(modid = ModInfo.MOD_ID)
 public class ModBlocks {
 
-    @GameRegistry.ObjectHolder("extrapressure:obsidian_plate")
-    public static BlockPlateObsidian blockPlateObsidian;
-
-    @SideOnly(Side.CLIENT)
-    public static void initModels() {
-        blockPlateObsidian.initModel();
-    }
-
+    public static final Block OBSIDIAN_PLATE = Blocks.AIR;
+    public static final Block END_STONE_PLATE = Blocks.AIR;
 }

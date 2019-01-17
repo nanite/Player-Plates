@@ -3,17 +3,15 @@ package uk.gaz492.extrapressure.proxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
+import uk.gaz492.extrapressure.ExtraPressure;
 import uk.gaz492.extrapressure.ModBlocks;
-import uk.gaz492.extrapressure.blocks.BlockPlateObsidian;
+import uk.gaz492.extrapressure.blocks.BlockExtraPressure;
 import uk.gaz492.extrapressure.util.ModInfo;
 
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID)
@@ -29,21 +27,26 @@ public class CommonProxy {
 
     }
 
+    private static Block plateReg(Block block, String name, float hardness, float resistance){
+        block.setCreativeTab(ExtraPressure.creativeTab);
+        block.setRegistryName(name);
+        block.setHardness(hardness);
+        block.setResistance(resistance);
+        block.setUnlocalizedName(ModInfo.MOD_ID + "." + name);
+
+        return block;
+    }
+
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(new BlockPlateObsidian());
-//        event.getRegistry().register(new BlockDrit());
-
-//        GameRegistry.registerTileEntity(TileFramland.class, new ResourceLocation(ModInformation.MOD_ID + ":framland"));
-//        GameRegistry.registerTileEntity(TileDrit.class, new ResourceLocation(ModInformation.MOD_ID + ":drit"));
+        event.getRegistry().register(plateReg(new BlockExtraPressure(BlockExtraPressure.Sensitivity.PLAYER), "obsidian_plate", 50.0f, 6000.0f));
+        event.getRegistry().register(plateReg(new BlockExtraPressure(BlockExtraPressure.Sensitivity.PLAYER), "end_stone_plate", 3.0f, 45.0f));
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        event.getRegistry().register(new ItemBlock(ModBlocks.blockPlateObsidian).setRegistryName(BlockPlateObsidian.PLATE_OBSIDIAN));
-//        event.getRegistry().register(new ItemBlock(ModBlocks.blockFramland).setRegistryName(BlockFramland.FRAMLAND));
-//        event.getRegistry().register(new ItemBlock(ModBlocks.blockDrit).setRegistryName(BlockDrit.DRIT));
-//        event.getRegistry().register(new ItemThunderHoe());
+        event.getRegistry().register(new ItemBlock(ModBlocks.OBSIDIAN_PLATE).setRegistryName("obsidian_plate"));
+        event.getRegistry().register(new ItemBlock(ModBlocks.END_STONE_PLATE).setRegistryName("end_stone_plate"));
     }
 
 }
