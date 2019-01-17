@@ -1,4 +1,4 @@
-package uk.gaz492.extrapressure.blocks;
+package uk.gaz492.playerplates.blocks;
 
 import net.minecraft.block.BlockBasePressurePlate;
 import net.minecraft.block.material.Material;

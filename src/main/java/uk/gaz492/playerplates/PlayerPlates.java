@@ -19,7 +19,7 @@ public class PlayerPlates {
     @SidedProxy(clientSide = ModInfo.CLIENT_PROXY)
     public static CommonProxy proxy;
 
-    public static CreativeTabs creativeTab = new CreativeTabs("Player Plates") {
+    public static CreativeTabs creativeTab = new CreativeTabs("player_plates") {
         @Override
         public ItemStack getTabIconItem() {
             return new ItemStack(ModBlocks.OBSIDIAN_PLATE);
