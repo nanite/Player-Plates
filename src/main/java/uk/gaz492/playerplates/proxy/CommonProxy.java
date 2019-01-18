@@ -55,6 +55,9 @@ public class CommonProxy {
         event.getRegistry().register(new ItemBlock(ModBlocks.MOSSY_PLATE).setRegistryName("mossy_plate"));
     }
 
+    /*
+    * DEV CODE REMOVE
+    * */
     @SubscribeEvent
     public static void entityJoinWorld(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntityPlayerMP) {
