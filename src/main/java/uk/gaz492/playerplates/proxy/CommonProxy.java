@@ -45,8 +45,8 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.PLAYER), "obsidian_plate", 50.0f, 6000.0f));
-        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.ITEMS_MOB), "mossy_plate", 1.0f, 0.0f));
+        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.PLAYER, "Players Only"), "obsidian_plate", 50.0f, 6000.0f));
+        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.ITEMS_MOB, "Items & Mobs"), "mossy_plate", 1.0f, 0.0f));
     }
 
     @SubscribeEvent

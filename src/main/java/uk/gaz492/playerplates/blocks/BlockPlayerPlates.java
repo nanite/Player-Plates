@@ -5,17 +5,18 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityAmbientCreature;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -26,12 +27,20 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
 
     public static final PropertyBool POWERED = PropertyBool.create("powered");
     public final BlockPlayerPlates.Sensitivity sensitivity;
+    private final String ToolTipText;
 
-    public BlockPlayerPlates(BlockPlayerPlates.Sensitivity sensitivity) {
+    public BlockPlayerPlates(BlockPlayerPlates.Sensitivity sensitivity, String toolTipText) {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
 
         this.sensitivity = sensitivity;
+
+        this.ToolTipText = toolTipText;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(TextFormatting.GOLD + "Triggered By: " + TextFormatting.GRAY + ToolTipText);
     }
 
     @Override
