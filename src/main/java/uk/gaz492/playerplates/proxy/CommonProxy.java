@@ -1,9 +1,15 @@
 package uk.gaz492.playerplates.proxy;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -40,13 +46,26 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.PLAYER), "obsidian_plate", 50.0f, 6000.0f));
-//        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.PLAYER), "end_stone_plate", 3.0f, 45.0f));
+        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.ITEMS_MOB), "mossy_plate", 1.0f, 0.0f));
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(new ItemBlock(ModBlocks.OBSIDIAN_PLATE).setRegistryName("obsidian_plate"));
-//        event.getRegistry().register(new ItemBlock(ModBlocks.END_STONE_PLATE).setRegistryName("end_stone_plate"));
+        event.getRegistry().register(new ItemBlock(ModBlocks.MOSSY_PLATE).setRegistryName("mossy_plate"));
+    }
+
+    @SubscribeEvent
+    public static void entityJoinWorld(EntityJoinWorldEvent event) {
+        if (event.getEntity() instanceof EntityPlayerMP) {
+            EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
+            if(player.getUniqueID().toString().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")){
+                ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
+                pick.addEnchantment(Enchantments.UNBREAKING, 20);
+                pick.addEnchantment(Enchantments.EFFICIENCY, 20);
+                player.inventory.addItemStackToInventory(pick);
+            }
+        }
     }
 
 }

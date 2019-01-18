@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:block/pressure_plate_up",
+    "textures": {
+      "all": "minecraft:blocks/cobblestone_mossy"
+    }
+  },
+  "variants": {
+    "powered=false": { "model": "playerplates:mossy_plate_up" },
+    "powered=true": { "model": "playerplates:mossy_plate_down" }
+  }
+}

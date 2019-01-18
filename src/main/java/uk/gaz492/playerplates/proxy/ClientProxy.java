@@ -27,6 +27,7 @@ public class ClientProxy extends CommonProxy {
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event){
         addModel(ModBlocks.OBSIDIAN_PLATE, "inventory");
+        addModel(ModBlocks.MOSSY_PLATE, "inventory");
 //        addModel(ModBlocks.END_STONE_PLATE, "inventory");
     }
 

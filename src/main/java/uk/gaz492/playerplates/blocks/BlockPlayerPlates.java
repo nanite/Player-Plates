@@ -6,7 +6,11 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityAmbientCreature;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
@@ -15,6 +19,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class BlockPlayerPlates extends BlockBasePressurePlate {
 
@@ -29,53 +35,55 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
     }
 
     @Override
-    public int getRedstoneStrength(IBlockState state)
-    {
+    public int getRedstoneStrength(IBlockState state) {
         return state.getValue(POWERED) ? 15 : 0;
     }
 
     @Override
-    public IBlockState setRedstoneStrength(IBlockState state, int strength)
-    {
+    public IBlockState setRedstoneStrength(IBlockState state, int strength) {
         return state.withProperty(POWERED, strength > 0);
     }
 
     @Override
-    public void playClickOnSound(World worldIn, BlockPos color)
-    {
-        if (this.blockMaterial == Material.WOOD)
-        {
-            worldIn.playSound((EntityPlayerMP)null, color, SoundEvents.BLOCK_WOOD_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.8F);
-        }
-        else
-        {
-            worldIn.playSound((EntityPlayerMP)null, color, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
-        }
+    public void playClickOnSound(World worldIn, BlockPos color) {
+        worldIn.playSound(null, color, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
     }
 
     @Override
-    public void playClickOffSound(World worldIn, BlockPos pos)
-    {
-        if (this.blockMaterial == Material.WOOD)
-        {
-            worldIn.playSound((EntityPlayerMP)null, pos, SoundEvents.BLOCK_WOOD_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.7F);
-        }
-        else
-        {
-            worldIn.playSound((EntityPlayerMP)null, pos, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.5F);
-        }
+    public void playClickOffSound(World worldIn, BlockPos pos) {
+
+        worldIn.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.5F);
     }
 
     @Override
-    public int computeRedstoneStrength(World worldIn, BlockPos pos)
-    {
+    public int computeRedstoneStrength(World worldIn, BlockPos pos) {
         AxisAlignedBB axisalignedbb = PRESSURE_AABB.offset(pos);
         List<? extends Entity> list;
 
-        switch (this.sensitivity)
-        {
+        List<? extends Entity> list1;
+        List<? extends Entity> list2;
+
+        switch (this.sensitivity) {
             case EVERYTHING:
-                list = worldIn.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
+                list = worldIn.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
+                break;
+            case ITEMS:
+                list = worldIn.getEntitiesWithinAABB(EntityItem.class, axisalignedbb);
+                break;
+            case ITEMS_MOB:
+                list1 = worldIn.getEntitiesWithinAABB(EntityItem.class, axisalignedbb);
+                list2 = worldIn.<Entity>getEntitiesWithinAABB(EntityLiving.class, axisalignedbb);
+                list = Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList());
+                break;
+            case ITEMS_PLAYER:
+                list1 = worldIn.getEntitiesWithinAABB(EntityItem.class, axisalignedbb);
+                list2 = worldIn.<Entity>getEntitiesWithinAABB(EntityPlayerMP.class, axisalignedbb);
+                list = Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList());
+                break;
+            case MOBS_PLAYER:
+                list1 = worldIn.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+                list2 = worldIn.<Entity>getEntitiesWithinAABB(EntityLiving.class, axisalignedbb);
+                list = Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList());
                 break;
             case MOBS:
                 list = worldIn.<Entity>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
@@ -87,12 +95,10 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
                 return 0;
         }
 
-        if (!list.isEmpty())
-        {
-            for (Entity entity : list)
-            {
-                if (!entity.doesEntityNotTriggerPressurePlate())
-                {
+        if (!list.isEmpty()) {
+
+            for (Entity entity : list) {
+                if (!entity.doesEntityNotTriggerPressurePlate()) {
                     return 15;
                 }
             }
@@ -103,27 +109,27 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
 
     @SuppressWarnings("deprecation")
     @Override
-    public IBlockState getStateFromMeta(int meta)
-    {
+    public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(POWERED, meta == 1);
     }
 
     @Override
-    public int getMetaFromState(IBlockState state)
-    {
+    public int getMetaFromState(IBlockState state) {
         return (Boolean) state.getValue(POWERED) ? 1 : 0;
     }
 
     @Override
-    public BlockStateContainer createBlockState()
-    {
+    public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, POWERED);
     }
 
-    public enum Sensitivity
-    {
+    public enum Sensitivity {
         EVERYTHING,
+        ITEMS,
+        ITEMS_MOB,
+        ITEMS_PLAYER,
+        MOBS_PLAYER,
         PLAYER,
-        MOBS;
+        MOBS
     }
 }

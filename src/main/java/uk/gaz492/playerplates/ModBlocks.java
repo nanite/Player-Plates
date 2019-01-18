@@ -11,5 +11,6 @@ import uk.gaz492.playerplates.util.ModInfo;
 public class ModBlocks {
 
     public static final Block OBSIDIAN_PLATE = Blocks.AIR;
+    public static final Block MOSSY_PLATE = Blocks.AIR;
 //    public static final Block END_STONE_PLATE = Blocks.AIR;
 }
