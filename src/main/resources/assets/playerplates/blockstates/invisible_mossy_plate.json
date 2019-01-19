@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:block/pressure_plate_up"
+  },
+  "variants": {
+    "powered=false": { "model": "playerplates:invisible_mossy_plate_up" },
+    "powered=true": { "model": "playerplates:invisible_mossy_plate_down" }
+  }
+}

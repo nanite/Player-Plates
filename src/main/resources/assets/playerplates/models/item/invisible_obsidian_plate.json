@@ -1,0 +1,6 @@
+{
+    "parent": "playerplates:block/invisible_obsidian_plate_up",
+    "textures": {
+        "texture": "playerplates:items/invisible_obsidian_pp"
+    }
+}

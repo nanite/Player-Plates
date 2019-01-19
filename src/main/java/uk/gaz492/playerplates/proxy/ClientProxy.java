@@ -28,6 +28,8 @@ public class ClientProxy extends CommonProxy {
     public static void registerModels(ModelRegistryEvent event){
         addModel(ModBlocks.OBSIDIAN_PLATE, "inventory");
         addModel(ModBlocks.MOSSY_PLATE, "inventory");
+        addModel(ModBlocks.INVISIBLE_OBSIDIAN_PLATE, "inventory");
+        addModel(ModBlocks.INVISIBLE_MOSSY_PLATE, "inventory");
 //        addModel(ModBlocks.END_STONE_PLATE, "inventory");
     }
 
