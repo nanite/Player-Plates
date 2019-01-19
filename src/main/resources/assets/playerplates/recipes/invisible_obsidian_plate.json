@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "OO"
+    "GO"
   ],
   "key": {
-    "O": [
-      {
-        "item": "minecraft:obsidian",
-        "data": 0
-      }
-    ]
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "paneGlass"
+    },
+    "O": {
+      "item": "obsidian_plate"
+    }
   },
   "result": {
-    "item": "playerplates:obsidian_plate",
-    "count": 1
+    "item": "invisible_obsidian_plate"
   }
 }

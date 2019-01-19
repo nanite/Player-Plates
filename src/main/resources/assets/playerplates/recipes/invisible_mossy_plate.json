@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "CC"
+    "GC"
   ],
   "key": {
-    "C": [
-      {
-        "item": "minecraft:mossy_cobblestone",
-        "data": 0
-      }
-    ]
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "paneGlass"
+    },
+    "C": {
+      "item": "mossy_plate"
+    }
   },
   "result": {
-    "item": "playerplates:mossy_plate",
-    "count": 1
+    "item": "invisible_mossy_plate"
   }
 }
