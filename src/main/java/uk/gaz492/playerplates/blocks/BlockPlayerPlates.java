@@ -62,6 +62,7 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
         tooltip.add(TextFormatting.GOLD + "Triggered By: " + TextFormatting.GRAY + ToolTipText);
         if (this.isInvisible) {
             tooltip.add(TextFormatting.GREEN + "Invisible when placed");
+            tooltip.add(TextFormatting.RED + "Silent");
         }
     }
 
@@ -77,13 +78,16 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
 
     @Override
     public void playClickOnSound(World worldIn, BlockPos color) {
-        worldIn.playSound(null, color, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
+        if (!this.isInvisible) {
+            worldIn.playSound(null, color, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
+        }
     }
 
     @Override
     public void playClickOffSound(World worldIn, BlockPos pos) {
-
-        worldIn.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.5F);
+        if (!this.isInvisible) {
+            worldIn.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.5F);
+        }
     }
 
     @Override
