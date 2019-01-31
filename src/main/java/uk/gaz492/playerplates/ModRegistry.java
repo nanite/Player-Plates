@@ -1,37 +1,28 @@
-package uk.gaz492.playerplates.proxy;
+package uk.gaz492.playerplates;
 
 import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import uk.gaz492.playerplates.PlayerPlates;
-import uk.gaz492.playerplates.ModBlocks;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import uk.gaz492.playerplates.blocks.BlockPlayerPlates;
 import uk.gaz492.playerplates.util.ModInfo;
 
+@GameRegistry.ObjectHolder(ModInfo.MOD_ID)
 @Mod.EventBusSubscriber(modid = ModInfo.MOD_ID)
-public class CommonProxy {
-    public void preInit(FMLPreInitializationEvent event) {
-    }
+public class ModRegistry {
 
-    public void init(FMLInitializationEvent event) {
+    public static final Block OBSIDIAN_PLATE = Blocks.AIR;
+    public static final Block MOSSY_PLATE = Blocks.AIR;
+    public static final Block INVISIBLE_OBSIDIAN_PLATE = Blocks.AIR;
+    public static final Block INVISIBLE_MOSSY_PLATE = Blocks.AIR;
 
-    }
-
-    public void postInit(FMLPostInitializationEvent event) {
-
-    }
 
     private static Block plateReg(Block block, String name, float hardness, float resistance) {
         block.setCreativeTab(PlayerPlates.creativeTab);
@@ -53,10 +44,22 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        event.getRegistry().register(new ItemBlock(ModBlocks.OBSIDIAN_PLATE).setRegistryName("obsidian_plate"));
-        event.getRegistry().register(new ItemBlock(ModBlocks.MOSSY_PLATE).setRegistryName("mossy_plate"));
-        event.getRegistry().register(new ItemBlock(ModBlocks.INVISIBLE_OBSIDIAN_PLATE).setRegistryName("invisible_obsidian_plate"));
-        event.getRegistry().register(new ItemBlock(ModBlocks.INVISIBLE_MOSSY_PLATE).setRegistryName("invisible_mossy_plate"));
+        event.getRegistry().register(new ItemBlock(OBSIDIAN_PLATE).setRegistryName("obsidian_plate"));
+        event.getRegistry().register(new ItemBlock(MOSSY_PLATE).setRegistryName("mossy_plate"));
+        event.getRegistry().register(new ItemBlock(INVISIBLE_OBSIDIAN_PLATE).setRegistryName("invisible_obsidian_plate"));
+        event.getRegistry().register(new ItemBlock(INVISIBLE_MOSSY_PLATE).setRegistryName("invisible_mossy_plate"));
     }
 
+
+    public static void addModel(Block block, String variant) {
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), variant));
+    }
+
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent event) {
+        addModel(OBSIDIAN_PLATE, "inventory");
+        addModel(MOSSY_PLATE, "inventory");
+        addModel(INVISIBLE_OBSIDIAN_PLATE, "inventory");
+        addModel(INVISIBLE_MOSSY_PLATE, "inventory");
+    }
 }
