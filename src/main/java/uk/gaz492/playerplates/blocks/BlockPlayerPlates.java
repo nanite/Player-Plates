@@ -24,6 +24,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import uk.gaz492.playerplates.ConfigHandler;
+import uk.gaz492.playerplates.PlayerPlates;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,15 +35,13 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
 
     public static final PropertyBool POWERED = PropertyBool.create("powered");
     public final BlockPlayerPlates.Sensitivity sensitivity;
-    private final String ToolTipText;
     private boolean isInvisible;
 
-    public BlockPlayerPlates(BlockPlayerPlates.Sensitivity sensitivity, String toolTipText, boolean invisible) {
+    public BlockPlayerPlates(BlockPlayerPlates.Sensitivity sensitivity, boolean invisible) {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
 
         this.sensitivity = sensitivity;
-        this.ToolTipText = toolTipText;
         this.isInvisible = invisible;
         this.translucent = invisible;
     }
@@ -58,10 +58,13 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
 
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(TextFormatting.GOLD + "Triggered By: " + TextFormatting.GRAY + ToolTipText);
+        tooltip.add(TextFormatting.GOLD + "Triggered By: " + TextFormatting.GRAY + this.sensitivity.tooltip);
         if (this.isInvisible) {
             tooltip.add(TextFormatting.GREEN + "Invisible when placed");
-            tooltip.add(TextFormatting.RED + "Silent");
+            if (ConfigHandler.general.invisiblePlatesSilent) {
+                tooltip.add(TextFormatting.RED + "Silent");
+
+            }
         }
     }
 
@@ -77,14 +80,14 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
 
     @Override
     public void playClickOnSound(World worldIn, BlockPos color) {
-        if (!this.isInvisible) {
+        if (!(!this.isInvisible && ConfigHandler.general.invisiblePlatesSilent)) {
             worldIn.playSound(null, color, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
         }
     }
 
     @Override
     public void playClickOffSound(World worldIn, BlockPos pos) {
-        if (!this.isInvisible) {
+        if (!(!this.isInvisible && ConfigHandler.general.invisiblePlatesSilent)) {
             worldIn.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.5F);
         }
     }
@@ -158,13 +161,19 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
     }
 
     public enum Sensitivity {
-        EVERYTHING,
-        ITEMS,
-        ITEMS_MOB,
-        ITEMS_PLAYER,
-        MOBS_PLAYER,
-        PLAYER,
-        MOBS
+        EVERYTHING("Everything"),
+        ITEMS("Items Only"),
+        ITEMS_MOB("Items & Mobs"),
+        ITEMS_PLAYER("Items & Players"),
+        MOBS_PLAYER("Mobs & Players"),
+        PLAYER("Players Only"),
+        MOBS("Mobs Only");
+
+        private final String tooltip;
+
+        Sensitivity(String tt) {
+            tooltip = tt;
+        }
     }
 
     @Override

@@ -36,18 +36,26 @@ public class ModRegistry {
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.PLAYER, "Players Only", false), "obsidian_plate", 50.0f, 6000.0f));
-        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.ITEMS_MOB, "Items & Mobs", false), "mossy_plate", 1.0f, 1.0f));
-        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.PLAYER, "Players Only", true), "invisible_obsidian_plate", 50.0f, 6000.0f));
-        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.ITEMS_MOB, "Items & Mobs", true), "invisible_mossy_plate", 1.0f, 1.0f));
+        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.PLAYER, false), "obsidian_plate", 50.0f, 6000.0f));
+        event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.ITEMS_MOB, false), "mossy_plate", 1.0f, 1.0f));
+
+        // Invisible Pressure Plates
+        if (ConfigHandler.general.enableAllInvisiblePlates) {
+            event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.PLAYER, true), "invisible_obsidian_plate", 50.0f, 6000.0f));
+            event.getRegistry().register(plateReg(new BlockPlayerPlates(BlockPlayerPlates.Sensitivity.ITEMS_MOB, true), "invisible_mossy_plate", 1.0f, 1.0f));
+        }
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().register(new ItemBlock(OBSIDIAN_PLATE).setRegistryName("obsidian_plate"));
         event.getRegistry().register(new ItemBlock(MOSSY_PLATE).setRegistryName("mossy_plate"));
-        event.getRegistry().register(new ItemBlock(INVISIBLE_OBSIDIAN_PLATE).setRegistryName("invisible_obsidian_plate"));
-        event.getRegistry().register(new ItemBlock(INVISIBLE_MOSSY_PLATE).setRegistryName("invisible_mossy_plate"));
+
+        // Invisible pressure plates
+        if (ConfigHandler.general.enableAllInvisiblePlates) {
+            event.getRegistry().register(new ItemBlock(INVISIBLE_OBSIDIAN_PLATE).setRegistryName("invisible_obsidian_plate"));
+            event.getRegistry().register(new ItemBlock(INVISIBLE_MOSSY_PLATE).setRegistryName("invisible_mossy_plate"));
+        }
     }
 
 
@@ -59,7 +67,10 @@ public class ModRegistry {
     public static void registerModels(ModelRegistryEvent event) {
         addModel(OBSIDIAN_PLATE, "inventory");
         addModel(MOSSY_PLATE, "inventory");
-        addModel(INVISIBLE_OBSIDIAN_PLATE, "inventory");
-        addModel(INVISIBLE_MOSSY_PLATE, "inventory");
+
+        if (ConfigHandler.general.enableAllInvisiblePlates) {
+            addModel(INVISIBLE_OBSIDIAN_PLATE, "inventory");
+            addModel(INVISIBLE_MOSSY_PLATE, "inventory");
+        }
     }
 }
