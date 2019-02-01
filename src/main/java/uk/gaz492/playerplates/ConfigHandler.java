@@ -13,9 +13,11 @@ public class ConfigHandler {
 
     public static class General {
 
+        @Config.RequiresMcRestart
         @Config.Comment({"Enables/Disables all invisible pressure playes"})
         public boolean enableAllInvisiblePlates = true;
 
+        @Config.RequiresMcRestart
         @Config.Comment({"Makes invisible pressure plates silent"})
         public boolean invisiblePlatesSilent = true;
     }

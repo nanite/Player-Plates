@@ -162,12 +162,18 @@ public class BlockPlayerPlates extends BlockBasePressurePlate {
 
     public enum Sensitivity {
         EVERYTHING("Everything"),
+
         ITEMS("Items Only"),
+        PLAYER("Players Only"),
+        MOBS("Mobs Only"),
+        ANIMALS("Animals Only"),
+
         ITEMS_MOB("Items & Mobs"),
         ITEMS_PLAYER("Items & Players"),
         MOBS_PLAYER("Mobs & Players"),
-        PLAYER("Players Only"),
-        MOBS("Mobs Only");
+        ITEMS_ANIMALS("");
+
+
 
         private final String tooltip;
 

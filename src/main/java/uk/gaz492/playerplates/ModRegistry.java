@@ -19,8 +19,9 @@ import uk.gaz492.playerplates.util.ModInfo;
 public class ModRegistry {
 
     public static final Block OBSIDIAN_PLATE = Blocks.AIR;
-    public static final Block MOSSY_PLATE = Blocks.AIR;
     public static final Block INVISIBLE_OBSIDIAN_PLATE = Blocks.AIR;
+
+    public static final Block MOSSY_PLATE = Blocks.AIR;
     public static final Block INVISIBLE_MOSSY_PLATE = Blocks.AIR;
 
 
