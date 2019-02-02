@@ -55,6 +55,9 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
     @Override
     public void buildTooltip(ItemStack itemStack, BlockView blockView, List<TextComponent> tooltip, TooltipOptions tooltipOptions) {
         tooltip.add(new StringTextComponent(TextFormat.GOLD + "Triggered By: " + TextFormat.GRAY + this.type.tooltip));
+        if(isInvisible){
+            tooltip.add(new StringTextComponent(TextFormat.GREEN + "Invisible"));
+        }
     }
 
     @Override

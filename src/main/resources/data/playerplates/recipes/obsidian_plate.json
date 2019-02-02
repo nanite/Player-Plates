@@ -4,12 +4,10 @@
     "OO"
   ],
   "key": {
-    "O": [
-      {
-        "item": "minecraft:obsidian",
-        "data": 0
-      }
-    ]
+    "O": {
+      "item": "minecraft:obsidian",
+      "data": 0
+    }
   },
   "result": {
     "item": "obsidian_plate",

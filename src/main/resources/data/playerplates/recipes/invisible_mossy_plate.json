@@ -5,8 +5,7 @@
   ],
   "key": {
     "G": {
-      "type": "forge:ore_dict",
-      "ore": "paneGlass"
+      "item": "minecraft:glass_pane"
     },
     "C": {
       "item": "mossy_plate"
