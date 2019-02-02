@@ -9,9 +9,5 @@
   ],
   "requires": {
     "fabric": "*"
-  },
-  "mixins": {
-    "client": "playerplates.client.json",
-    "common": "playerplates.common.json"
   }
 }
