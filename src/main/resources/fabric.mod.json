@@ -1,0 +1,17 @@
+{
+  "id": "playerplates",
+  "name": "Player Plates",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "version": "1.0.0",
+  "side": "universal",
+  "initializers": [
+    "uk.gaz492.playerplates.PlayerPlates"
+  ],
+  "requires": {
+    "fabric": "*"
+  },
+  "mixins": {
+    "client": "playerplates.client.json",
+    "common": "playerplates.common.json"
+  }
+}

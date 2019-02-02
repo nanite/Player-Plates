@@ -1,6 +1,7 @@
 {
     "parent": "playerplates:block/invisible_mossy_plate_up",
     "textures": {
-        "texture": "playerplates:items/invisible_mossy_pp"
-    }
+        "texture": "playerplates:item/invisible_mossy_pp"
+    },
+    "variants": [{}]
 }

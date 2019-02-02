@@ -1,32 +1,19 @@
 package uk.gaz492.playerplates;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.apache.logging.log4j.Logger;
-import uk.gaz492.playerplates.util.ModInfo;
+import net.fabricmc.api.ModInitializer;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, useMetadata = true)
-public class PlayerPlates {
+public class PlayerPlates implements ModInitializer {
 
-    public static CreativeTabs creativeTab = new CreativeTabs("player_plates") {
-        @Override
-        public ItemStack getTabIconItem() {
-            return new ItemStack(ModRegistry.OBSIDIAN_PLATE);
-        }
-    };
+    public PPBlocks blocks;
+    public PPItems items;
+    @Override
+    public void onInitialize() {
+        // This code runs as soon as Minecraft is in a mod-load-ready state.
+        // However, some things (like resources) may still be uninitialized.
+        // Proceed with mild caution.
 
-    @Mod.Instance
-    public static PlayerPlates instance;
-
-
-    private static Logger logger;
-
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        logger = event.getModLog();
+        System.out.println("Hello Fabric world!");
+        this.blocks = new PPBlocks(this);
+        this.items = new PPItems(this);
     }
-
 }
