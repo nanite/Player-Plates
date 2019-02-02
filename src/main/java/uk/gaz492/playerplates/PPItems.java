@@ -12,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import uk.gaz492.playerplates.item.DescriptiveBlockItem;
+import uk.gaz492.playerplates.util.ModInfo;
 
 import java.util.function.Supplier;
 
@@ -23,7 +24,7 @@ public class PPItems {
     public static Item mossyPlate;
     public static Item invisibleMossyPlate;
 
-    public static ItemGroup creativeTab = FabricItemGroupBuilder.build(new Identifier("playerplates:player_plates"), new Supplier<ItemStack>() {
+    public static ItemGroup creativeTab = FabricItemGroupBuilder.build(new Identifier(ModInfo.MOD_ID + ":player_plates"), new Supplier<ItemStack>() {
         @Override
         public ItemStack get() {
             return new ItemStack(obsidianPlate);
@@ -40,11 +41,11 @@ public class PPItems {
         invisibleMossyPlate = this.register("invisible_mossy_plate", mod.blocks.invisibleMossyPlate, this.defaultSettings);
     }
 
-    private Item register (String id, Item item){
-        return Registry.ITEM.register(new Identifier("playerplates", id), item);
+    private Item register(String id, Item item) {
+        return Registry.ITEM.register(new Identifier(ModInfo.MOD_ID, id), item);
     }
 
-    private Item register (String id, Block block, Settings settings) {
+    private Item register(String id, Block block, Settings settings) {
 
         return this.register(id, new DescriptiveBlockItem(block, settings));
     }

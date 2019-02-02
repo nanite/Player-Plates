@@ -1,11 +1,11 @@
 package uk.gaz492.playerplates;
 
-import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import uk.gaz492.playerplates.blocks.BlockPlayerPlate;
+import uk.gaz492.playerplates.util.ModInfo;
 
 public class PPBlocks {
 
@@ -24,6 +24,6 @@ public class PPBlocks {
     }
 
     private Block register(String id, Block block) {
-        return Registry.BLOCK.register(new Identifier("playerplates", id), block);
+        return Registry.BLOCK.register(new Identifier(ModInfo.MOD_ID, id), block);
     }
 }
