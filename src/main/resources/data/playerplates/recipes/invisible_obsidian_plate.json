@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "crafting_shaped",
   "pattern": [
     "GO"
   ],
@@ -8,10 +8,10 @@
       "item": "minecraft:glass_pane"
     },
     "O": {
-      "item": "obsidian_plate"
+      "item": "playerplates:obsidian_plate"
     }
   },
   "result": {
-    "item": "invisible_obsidian_plate"
+    "item": "playerplates:invisible_obsidian_plate"
   }
 }

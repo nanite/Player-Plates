@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "crafting_shaped",
   "pattern": [
     "OO"
   ],
@@ -10,7 +10,7 @@
     }
   },
   "result": {
-    "item": "obsidian_plate",
+    "item": "playerplates:obsidian_plate",
     "count": 1
   }
 }

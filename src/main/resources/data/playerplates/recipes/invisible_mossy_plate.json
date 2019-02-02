@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "crafting_shaped",
   "pattern": [
     "GC"
   ],
@@ -8,10 +8,10 @@
       "item": "minecraft:glass_pane"
     },
     "C": {
-      "item": "mossy_plate"
+      "item": "playerplates:mossy_plate"
     }
   },
   "result": {
-    "item": "invisible_mossy_plate"
+    "item": "playerplates:invisible_mossy_plate"
   }
 }
