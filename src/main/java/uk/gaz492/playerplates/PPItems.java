@@ -1,14 +1,23 @@
 package uk.gaz492.playerplates;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import uk.gaz492.playerplates.item.DescriptiveBlockItem;
 
 public class PPItems {
+
+//    public static ItemGroup creativeTab = new ItemGroup(20, "player_plates") {
+//        @Override
+//        public ItemStack getIconItem() {
+//            return new ItemStack(Blocks.OAK_PRESSURE_PLATE);
+//        }
+//    };
 
     private final Settings defaultSettings = new Settings().itemGroup(ItemGroup.REDSTONE);
 
