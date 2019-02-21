@@ -1,11 +1,9 @@
 package uk.gaz492.playerplates.blocks;
 
-import net.fabricmc.fabric.block.FabricBlockSettings;
 import net.minecraft.block.*;
-import net.minecraft.client.item.TooltipOptions;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -53,7 +51,7 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
     }
 
     @Override
-    public void buildTooltip(ItemStack itemStack, BlockView blockView, List<TextComponent> tooltip, TooltipOptions tooltipOptions) {
+    public void buildTooltip(ItemStack itemStack, BlockView blockView, List<TextComponent> tooltip, TooltipContext tooltipContext) {
         tooltip.add(new StringTextComponent(TextFormat.GOLD + "Triggered By: " + TextFormat.GRAY + this.type.tooltip));
         if(isInvisible){
             tooltip.add(new StringTextComponent(TextFormat.GREEN + "Invisible"));
@@ -79,14 +77,14 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
         List<? extends Entity> list2;
         switch(this.type) {
             case EVERYTHING:
-                list = world.getVisibleEntities((Entity)null, boundingBox);
+                list = world.getVisibleEntities(null, boundingBox);
                 break;
             case PLAYER:
-                list = world.getVisibleEntities(PlayerEntity.class, boundingBox);
+                list = world.method_18467(PlayerEntity.class, boundingBox);
                 break;
             case ITEMS_MOB:
-                list1 = world.getVisibleEntities(ItemEntity.class, boundingBox);
-                list2 = world.<Entity>getVisibleEntities(MobEntity.class, boundingBox);
+                list1 = world.method_18467(ItemEntity.class, boundingBox);
+                list2 = world.method_18467(MobEntity.class, boundingBox);
                 list = Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList());
                 break;
             default:

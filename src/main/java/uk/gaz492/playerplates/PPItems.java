@@ -1,14 +1,11 @@
 package uk.gaz492.playerplates;
 
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.client.itemgroup.FabricCreativeGuiComponents;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import uk.gaz492.playerplates.item.DescriptiveBlockItem;
@@ -42,7 +39,8 @@ public class PPItems {
     }
 
     private Item register(String id, Item item) {
-        return Registry.ITEM.register(new Identifier(ModInfo.MOD_ID, id), item);
+//        return Registry.ITEM.register(new Identifier(ModInfo.MOD_ID, id), item);
+        return Registry.ITEM.add(new Identifier(ModInfo.MOD_ID, id), item);
     }
 
     private Item register(String id, Block block, Settings settings) {
