@@ -25,6 +25,6 @@ public class PPBlocks {
     }
 
     private Block register(String id, Block block) {
-        return Registry.BLOCK.add(new Identifier(ModInfo.MOD_ID, id), block);
+        return Registry.register(Registry.BLOCK, new Identifier(ModInfo.MOD_ID, id), block);
     }
 }

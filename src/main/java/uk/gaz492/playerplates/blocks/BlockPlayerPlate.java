@@ -43,9 +43,9 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
 
     @Override
     public BlockRenderType getRenderType(BlockState blockState) {
-        if (isInvisible){
+        if (isInvisible) {
             return BlockRenderType.INVISIBLE;
-        }else{
+        } else {
             return super.getRenderType(blockState);
         }
     }
@@ -53,7 +53,7 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
     @Override
     public void buildTooltip(ItemStack itemStack, BlockView blockView, List<TextComponent> tooltip, TooltipContext tooltipContext) {
         tooltip.add(new StringTextComponent(TextFormat.GOLD + "Triggered By: " + TextFormat.GRAY + this.type.tooltip));
-        if(isInvisible){
+        if (isInvisible) {
             tooltip.add(new StringTextComponent(TextFormat.GREEN + "Invisible"));
         }
     }
@@ -75,10 +75,7 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
 
         List<? extends Entity> list1;
         List<? extends Entity> list2;
-        switch(this.type) {
-            case EVERYTHING:
-                list = world.getVisibleEntities(null, boundingBox);
-                break;
+        switch (this.type) {
             case PLAYER:
                 list = world.method_18467(PlayerEntity.class, boundingBox);
                 break;
@@ -94,8 +91,8 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
         if (!list.isEmpty()) {
             Iterator var5 = list.iterator();
 
-            while(var5.hasNext()) {
-                Entity entity_1 = (Entity)var5.next();
+            while (var5.hasNext()) {
+                Entity entity_1 = (Entity) var5.next();
                 if (!entity_1.canAvoidTraps()) {
                     return 15;
                 }
@@ -124,17 +121,8 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
     }
 
     public enum Type {
-        EVERYTHING("Everything"),
-
-        ITEMS("Items Only"),
         PLAYER("Players Only"),
-        MOBS("Mobs Only"),
-        ANIMALS("Animals Only"),
-
-        ITEMS_MOB("Items & Mobs"),
-        ITEMS_PLAYER("Items & Players"),
-        MOBS_PLAYER("Mobs & Players"),
-        ITEMS_ANIMALS("");
+        ITEMS_MOB("Items & Mobs");
 
         private final String tooltip;
 

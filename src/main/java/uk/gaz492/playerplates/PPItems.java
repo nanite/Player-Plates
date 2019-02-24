@@ -6,9 +6,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.block.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import uk.gaz492.playerplates.item.DescriptiveBlockItem;
 import uk.gaz492.playerplates.util.ModInfo;
 
 import java.util.function.Supplier;
@@ -38,13 +38,7 @@ public class PPItems {
         invisibleMossyPlate = this.register("invisible_mossy_plate", mod.blocks.invisibleMossyPlate, this.defaultSettings);
     }
 
-    private Item register(String id, Item item) {
-//        return Registry.ITEM.register(new Identifier(ModInfo.MOD_ID, id), item);
-        return Registry.ITEM.add(new Identifier(ModInfo.MOD_ID, id), item);
-    }
-
     private Item register(String id, Block block, Settings settings) {
-
-        return this.register(id, new DescriptiveBlockItem(block, settings));
+        return Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, id), new BlockItem(block, settings));
     }
 }
