@@ -73,26 +73,25 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
         BoundingBox boundingBox = BOX.offset(pos);
         List list;
 
-        List<? extends Entity> list1;
-        List<? extends Entity> list2;
+        List<? extends Entity> compList1;
+        List<? extends Entity> compList2;
         switch (this.type) {
             case PLAYER:
                 list = world.method_18467(PlayerEntity.class, boundingBox);
                 break;
             case ITEMS_MOB:
-                list1 = world.method_18467(ItemEntity.class, boundingBox);
-                list2 = world.method_18467(MobEntity.class, boundingBox);
-                list = Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList());
+                compList1 = world.method_18467(ItemEntity.class, boundingBox);
+                compList2 = world.method_18467(MobEntity.class, boundingBox);
+                list = Stream.concat(compList1.stream(), compList2.stream()).collect(Collectors.toList());
                 break;
             default:
                 return 0;
         }
 
         if (!list.isEmpty()) {
-            Iterator var5 = list.iterator();
-
-            while (var5.hasNext()) {
-                Entity entity_1 = (Entity) var5.next();
+            Iterator listIterator = list.iterator();
+            while (listIterator.hasNext()) {
+                Entity entity_1 = (Entity) listIterator.next();
                 if (!entity_1.canAvoidTraps()) {
                     return 15;
                 }
