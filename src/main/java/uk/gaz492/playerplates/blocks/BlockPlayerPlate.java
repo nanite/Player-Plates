@@ -1,23 +1,20 @@
 package uk.gaz492.playerplates.blocks;
 
 import net.minecraft.block.*;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.StringTextComponent;
-import net.minecraft.text.TextComponent;
-import net.minecraft.text.TextFormat;
+//import net.minecraft.text.StringTextComponent;
+//import net.minecraft.text.TextComponent;
+//import net.minecraft.text.TextFormat;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BoundingBox;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
@@ -50,22 +47,22 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
         }
     }
 
-    @Override
-    public void buildTooltip(ItemStack itemStack, BlockView blockView, List<TextComponent> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new StringTextComponent(TextFormat.GOLD + "Triggered By: " + TextFormat.GRAY + this.type.tooltip));
-        if (isInvisible) {
-            tooltip.add(new StringTextComponent(TextFormat.GREEN + "Invisible"));
-        }
-    }
+//    @Override
+//    public void buildTooltip(ItemStack itemStack, BlockView blockView, List<Component> tooltip, TooltipContext tooltipContext) {
+//        tooltip.add(new StringTextComponent(TextFormat.GOLD + "Triggered By: " + TextFormat.GRAY + this.type.tooltip));
+//        if (isInvisible) {
+//            tooltip.add(new StringTextComponent(TextFormat.GREEN + "Invisible"));
+//        }
+//    }
 
     @Override
     protected void playPressSound(IWorld iWorld, BlockPos pos) {
-        iWorld.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON, SoundCategory.BLOCK, 0.3F, 0.6F);
+        iWorld.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
     }
 
     @Override
     protected void playDepressSound(IWorld iWorld, BlockPos pos) {
-        iWorld.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, SoundCategory.BLOCK, 0.3F, 0.6F);
+        iWorld.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.6F);
     }
 
     @Override
@@ -77,11 +74,11 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
         List<? extends Entity> compList2;
         switch (this.type) {
             case PLAYER:
-                list = world.method_18467(PlayerEntity.class, boundingBox);
+                list = world.getEntities(PlayerEntity.class, boundingBox);
                 break;
             case ITEMS_MOB:
-                compList1 = world.method_18467(ItemEntity.class, boundingBox);
-                compList2 = world.method_18467(MobEntity.class, boundingBox);
+                compList1 = world.getEntities(ItemEntity.class, boundingBox);
+                compList2 = world.getEntities(MobEntity.class, boundingBox);
                 list = Stream.concat(compList1.stream(), compList2.stream()).collect(Collectors.toList());
                 break;
             default:
@@ -112,7 +109,8 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
     }
 
     protected void appendProperties(StateFactory.Builder<Block, BlockState> stateFactory$Builder_1) {
-        stateFactory$Builder_1.with(POWERED);
+//        stateFactory$Builder_1.with(POWERED);
+        stateFactory$Builder_1.add(POWERED);
     }
 
     static {

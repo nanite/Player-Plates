@@ -2,11 +2,11 @@ package uk.gaz492.playerplates;
 
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.block.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import uk.gaz492.playerplates.util.ModInfo;
@@ -28,7 +28,7 @@ public class PPItems {
         }
     });
 
-    private final Settings defaultSettings = new Settings().itemGroup(creativeTab);
+    private final Settings defaultSettings = new Settings().group(creativeTab);
 
     PPItems(PlayerPlates mod) {
         obsidianPlate = this.register("obsidian_plate", mod.blocks.obsidianPlate, this.defaultSettings);
