@@ -1,20 +1,23 @@
 package uk.gaz492.playerplates.blocks;
 
 import net.minecraft.block.*;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
-//import net.minecraft.text.StringTextComponent;
-//import net.minecraft.text.TextComponent;
-//import net.minecraft.text.TextFormat;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BoundingBox;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
@@ -47,13 +50,13 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
         }
     }
 
-//    @Override
-//    public void buildTooltip(ItemStack itemStack, BlockView blockView, List<Component> tooltip, TooltipContext tooltipContext) {
-//        tooltip.add(new StringTextComponent(TextFormat.GOLD + "Triggered By: " + TextFormat.GRAY + this.type.tooltip));
-//        if (isInvisible) {
-//            tooltip.add(new StringTextComponent(TextFormat.GREEN + "Invisible"));
-//        }
-//    }
+    @Override
+    public void buildTooltip(ItemStack itemStack, BlockView blockView, List<Text> tooltip, TooltipContext tooltipContext) {
+        tooltip.add(new LiteralText(Formatting.GOLD + "Triggered By: " + Formatting.GRAY + this.type.tooltip));
+        if (isInvisible) {
+            tooltip.add(new LiteralText(Formatting.GREEN + "Invisible when placed"));
+        }
+    }
 
     @Override
     protected void playPressSound(IWorld iWorld, BlockPos pos) {
@@ -67,7 +70,7 @@ public class BlockPlayerPlate extends AbstractPressurePlateBlock {
 
     @Override
     protected int getRedstoneOutput(World world, BlockPos pos) {
-        BoundingBox boundingBox = BOX.offset(pos);
+        Box boundingBox = BOX.offset(pos);
         List list;
 
         List<? extends Entity> compList1;

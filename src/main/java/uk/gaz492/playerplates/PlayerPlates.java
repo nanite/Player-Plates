@@ -4,12 +4,10 @@ import net.fabricmc.api.ModInitializer;
 
 public class PlayerPlates implements ModInitializer {
 
-    public PPBlocks blocks;
-    public PPItems items;
+    public PPRegistry registry;
+
     @Override
     public void onInitialize() {
-
-        this.blocks = new PPBlocks(this);
-        this.items = new PPItems(this);
+        this.registry = new PPRegistry(this);
     }
 }
