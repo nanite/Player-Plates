@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "playerplates:block/invisible_obsidian_plate_up" },
+    "powered=true": { "model": "playerplates:block/invisible_obsidian_plate_down" }
+  }
+}
