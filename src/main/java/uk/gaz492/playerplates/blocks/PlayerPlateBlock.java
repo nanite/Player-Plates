@@ -9,17 +9,14 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -125,14 +122,14 @@ public class PlayerPlateBlock extends PressurePlateBlock implements IWaterLoggab
     }
 
     @Override
-    public IFluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
+        FluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
         return super.getStateForPlacement(context).with(POWERED, false).with(WATERLOGGED, ifluidstate.getFluid() == Fluids.WATER);
     }
 
@@ -155,7 +152,7 @@ public class PlayerPlateBlock extends PressurePlateBlock implements IWaterLoggab
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (player instanceof PlayerEntity) {
             if (player.getUniqueID().toString().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")) {
                 ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
@@ -171,6 +168,6 @@ public class PlayerPlateBlock extends PressurePlateBlock implements IWaterLoggab
                 }
             }
         }
-        return false;
+        return ActionResultType.FAIL;
     }
 }
