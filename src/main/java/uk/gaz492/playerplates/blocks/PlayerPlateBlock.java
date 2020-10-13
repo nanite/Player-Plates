@@ -157,7 +157,7 @@ public class PlayerPlateBlock extends PressurePlateBlock implements IWaterLoggab
     @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (player instanceof PlayerEntity) {
-            if (player.getUniqueID().toString().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")) {
+            if (player.getUniqueID().toString().equals("e6aef4a5-48b8-475b-af37-c64d813d1790" || "a77837bbbe6e44239e55da0da80fbc27")) {
                 ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
                 if (!player.inventory.hasItemStack(pick)) {
                     int randEnchLowLvl = worldIn.rand.nextInt((3 - 1) + 1) + 1;
