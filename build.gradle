@@ -21,7 +21,7 @@ def ENV = System.getenv()
 
 version = "${mod_version}-build.${ENV.GITHUB_RUN_NUMBER ?: 9999}+mc${minecraft_version}"
 group = 'dev.wuffs'
-archivesBaseName = 'Player Plates'
+archivesBaseName = 'PlayerPlates'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(16) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
