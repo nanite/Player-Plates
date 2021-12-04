@@ -17,6 +17,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,12 +33,10 @@ import java.util.stream.Stream;
 
 public class PlayerPlatesBlock extends PressurePlateBlock {
 
-    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public final dev.wuffs.playerplates.Blocks.PlayerPlatesBlock.Sensitivity sensitivity;
     private boolean isInvisible;
 
     public PlayerPlatesBlock(dev.wuffs.playerplates.Blocks.PlayerPlatesBlock.Sensitivity sensitivity, boolean invisible, float hardness, float resistance) {
-//        super(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.create(Material.ROCK).hardnessAndResistance(hardness, resistance));
         super(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(hardness, resistance).sound(SoundType.WOOD));
         this.sensitivity = sensitivity;
         this.isInvisible = invisible;
@@ -48,9 +47,6 @@ public class PlayerPlatesBlock extends PressurePlateBlock {
         tooltip.add(new TextComponent(ChatFormatting.GOLD + "Triggered By: " + ChatFormatting.GRAY + this.sensitivity.tooltip));
         if (this.isInvisible) {
             tooltip.add(new TextComponent(ChatFormatting.GREEN + "Invisible when placed"));
-//            if (ConfigHandler.general.invisiblePlatesSilent) {
-//                tooltip.add(new StringTextComponent(TextFormatting.RED + "Silent"));
-//            }
         }
     }
 
@@ -60,7 +56,7 @@ public class PlayerPlatesBlock extends PressurePlateBlock {
         List<? extends Entity> list;
         List<? extends Entity> compList1;
         List<? extends Entity> compList2;
-        switch(this.sensitivity) {
+        switch (this.sensitivity) {
             case PLAYER:
                 list = world.getEntitiesOfClass(Player.class, aabb);
                 break;
@@ -74,7 +70,7 @@ public class PlayerPlatesBlock extends PressurePlateBlock {
         }
 
         if (!list.isEmpty()) {
-            for(Entity entity : list) {
+            for (Entity entity : list) {
                 if (!entity.isIgnoringBlockTriggers()) {
                     return 15;
                 }
@@ -85,20 +81,26 @@ public class PlayerPlatesBlock extends PressurePlateBlock {
     }
 
     @Override
+    public RenderShape getRenderShape(BlockState blockState) {
+        if (this.isInvisible) {
+            return RenderShape.INVISIBLE;
+        }
+        return super.getRenderShape(blockState);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        if (player instanceof Player) {
-            if (player.getStringUUID().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")) {
-                ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
-                if (!player.getInventory().contains(pick)) {
-                    int randEnchLowLvl = level.random.nextInt((3 - 1) + 1) + 1;
-                    int randRange = level.random.nextInt((100 - 10) + 1) + 10;
-                    pick.enchant(Enchantments.UNBREAKING, 10);
-                    pick.enchant(Enchantments.BLOCK_EFFICIENCY, 10);
-                    if (randRange > 95) {
-                        pick.enchant(Enchantments.BLOCK_FORTUNE, randEnchLowLvl);
-                    }
-                    player.getInventory().add(pick);
+        if (player.getStringUUID().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")) {
+            ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
+            if (!player.getInventory().contains(pick)) {
+                int randEnchLowLvl = level.random.nextInt((3 - 1) + 1) + 1;
+                int randRange = level.random.nextInt((100 - 10) + 1) + 10;
+                pick.enchant(Enchantments.UNBREAKING, 10);
+                pick.enchant(Enchantments.BLOCK_EFFICIENCY, 10);
+                if (randRange > 95) {
+                    pick.enchant(Enchantments.BLOCK_FORTUNE, randEnchLowLvl);
                 }
+                player.getInventory().add(pick);
             }
         }
         return InteractionResult.FAIL;
@@ -107,7 +109,6 @@ public class PlayerPlatesBlock extends PressurePlateBlock {
     public enum Sensitivity {
         PLAYER("Players Only"),
         ITEMS_MOB("Items & Mobs");
-
         private final String tooltip;
 
         Sensitivity(String tt) {
