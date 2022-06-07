@@ -23,11 +23,6 @@ public class PlayerPlates
         }
     };
 
-    private static Block plateReg(Block block, String name) {
-        block.setRegistryName(name);
-        return block;
-    }
-
     public PlayerPlates() {
         Registry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Registry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
