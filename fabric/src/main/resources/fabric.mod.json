@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "playerplates",
+  "version": "${version}",
+  "name": "Player Plates",
+  "description": "Obsidian pressure plates and mossy plates",
+  "authors": [
+    "Gaz"
+  ],
+  "contact": {
+    "homepage": "https://github.com/nanite/Player-Plates",
+    "sources": "https://github.com/nanite/Player-Plates"
+  },
+  "license": "All rights reserved",
+  "icon": "assets/examplemod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.wuffs.playerplates.PlayerPlates::init"
+    ]
+  },
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.19.2",
+    "architectury": ">=6.2.43"
+  }
+}

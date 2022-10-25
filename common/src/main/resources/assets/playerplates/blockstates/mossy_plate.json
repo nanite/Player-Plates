@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "playerplates:block/mossy_plate_up" },
+    "powered=true": { "model": "playerplates:block/mossy_plate_down" }
+  }
+}
