@@ -2,6 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.0.0]
+## [3.0.0]
 
-- Ported to Architectury
+- Ported to 1.20.1

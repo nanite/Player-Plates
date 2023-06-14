@@ -20,10 +20,11 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,8 +34,8 @@ public class PlayerPlateBlock extends PressurePlateBlock {
     public final Sensitivity sensitivity;
     private boolean isInvisible;
 
-    public PlayerPlateBlock(Sensitivity sensitivity, boolean invisible, float hardness, float resistance) {
-        super(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(hardness, resistance).sound(SoundType.WOOD));
+    public PlayerPlateBlock(Sensitivity sensitivity, boolean invisible, float hardness, float resistance, BlockSetType type) {
+        super(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(hardness, resistance).sound(SoundType.WOOD), type);
         this.sensitivity = sensitivity;
         this.isInvisible = invisible;
 
