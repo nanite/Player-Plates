@@ -54,54 +54,24 @@ publishMods {
     changelog = file("./CHANGELOG.md").text
     type = STABLE
 
-    def optionsCurseforge = curseforgeOptions {
-        projectId = "${curseforge_id}"
-        accessToken = providers.environmentVariable("CURSE_TOKEN")
-        minecraftVersions.add("${minecraft_version}")
+    def makeOptions = { String name, boolean isCurse ->
+        def options = (isCurse ? curseforgeOptions {} : modrinthOptions {}).get()
+        options.minecraftVersions.add("${minecraft_version}")
+        options.projectId = isCurse ? "${curseforge_id}" : "${modrinth_id}"
+        options.accessToken = providers.environmentVariable("CURSE_TOKEN")
+        options.displayName = "${project.name} ${name[0].toUpperCase() + name.substring(1)} ${mod_version}+mc${minecraft_version}"
+        options.file = project.provider { project(":${name}").tasks.remapJar }.flatMap { it.archiveFile }
+        options.modLoaders.add("Java 17")
+        options.modLoaders.add("${name}")
+        return options
     }
-
-    //    Todo: WILL ADD MODRINTH ONCE THEY FIX THEIR OVERREACHING TOS
-    def optionsModrinth = modrinthOptions {
-        projectId = "${modrinth_id}"
-        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-        minecraftVersions.add("${minecraft_version}")
-        featured = true
-    }
-
-    def loaderOptions = { String name ->
-        return curseforgeOptions = {
-            displayName = "${project.name} ${project.name[0].toUpperCase() + project.name.substring(1)} ${mod_version}+mc${minecraft_version}"
-            file = project.provider { project(":${name}").tasks.remapJar }.flatMap { it.archiveFile }
-            modLoaders = []
-            modLoaders.add("Java 17")
-            modLoaders.add("${name}")
-        }
-    }
-
-    // Better?
-//    def loaderOptions = { String name ->
-//        return {
-//            displayName = "${project.name} ${project.name[0].toUpperCase() + project.name.substring(1)} ${mod_version}+mc${minecraft_version}"
-//            file = project.provider { project(":${name}").tasks.remapJar }.flatMap { it.archiveFile }
-//            modLoaders = []
-//            modLoaders.add("Java 17")
-//            modLoaders.add("${name}")
-//        } as PublishOptions
-//    }
-
-    def forgeOptions = loaderOptions("forge")
-    def fabricOptions = loaderOptions("fabric")
-
-    println(forgeOptions.file)
 
     curseforge("curseforgeForge") {
-        from optionsCurseforge
-        from forgeOptions
+        from makeOptions("forge", true)
     }
 
     curseforge("curseforgeFabric") {
-        from optionsCurseforge
-        from fabricOptions
+        from makeOptions("fabric", true)
 
         requires {
             slug = "fabric-api"
@@ -109,13 +79,13 @@ publishMods {
     }
 
     modrinth("modrinthForge") {
-        from optionsModrinth
-        from forgeOptions
+        featured = true
+        from makeOptions("forge", false)
     }
 
     modrinth("modrinthFabric") {
-        from optionsModrinth
-        from fabricOptions
+        featured = true
+        from makeOptions("fabric", false)
 
         requires {
             projectId = "P7dR8mSH" // Fabric api
