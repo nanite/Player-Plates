@@ -1,7 +1,10 @@
+import me.modmuss50.mpp.PublishOptions
+
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.2-SNAPSHOT" apply false
     id "com.matthewprenger.cursegradle" version "1.4.0" apply false
+    id "me.modmuss50.mod-publish-plugin" version "0.2.1"
 }
 
 architectury {
@@ -46,4 +49,56 @@ allprojects {
     }
 }
 
-task curseforgePublish
+publishMods {
+    dryRun = providers.environmentVariable("CURSE_TOKEN").getOrNull() == null
+    changelog = file("./CHANGELOG.md").text
+    type = STABLE
+
+    def makeOptions = { String name, boolean isCurse ->
+        def options = (isCurse ? curseforgeOptions {} : modrinthOptions {}).get()
+        options.minecraftVersions.add("${minecraft_version}")
+        options.projectId = isCurse ? "${curseforge_id}" : "${modrinth_id}"
+        options.accessToken = providers.environmentVariable(isCurse ? "CURSE_TOKEN" : "MODRINTH_TOKEN")
+        options.displayName = "${project.name} ${name[0].toUpperCase() + name.substring(1)} ${mod_version}+mc${minecraft_version}"
+        options.file = project.provider { project(":${name}").tasks.remapJar }.flatMap { it.archiveFile }
+        options.modLoaders.add("Java 17")
+        options.modLoaders.add("${name}")
+        return options
+    }
+
+    curseforge("curseforgeForge") {
+        from makeOptions("forge", true)
+    }
+
+    curseforge("curseforgeFabric") {
+        from makeOptions("fabric", true)
+
+        requires {
+            slug = "fabric-api"
+        }
+    }
+
+    modrinth("modrinthForge") {
+        featured = true
+        from makeOptions("forge", false)
+    }
+
+    modrinth("modrinthFabric") {
+        featured = true
+        from makeOptions("fabric", false)
+
+        requires {
+            projectId = "P7dR8mSH" // Fabric api
+        }
+    }
+
+    github {
+        file = project.provider { project(":forge").tasks.jar }.flatMap { it.archiveFile }
+        additionalFiles.from project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
+        repository = "${github_repo}"
+        accessToken = providers.environmentVariable("GITHUB_TOKEN")
+        commitish = providers.environmentVariable("GITHUB_SHA").orElse("dryRun")
+    }
+}
+
+//task publishMods
