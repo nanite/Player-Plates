@@ -58,7 +58,7 @@ publishMods {
         def options = (isCurse ? curseforgeOptions {} : modrinthOptions {}).get()
         options.minecraftVersions.add("${minecraft_version}")
         options.projectId = isCurse ? "${curseforge_id}" : "${modrinth_id}"
-        options.accessToken = providers.environmentVariable("CURSE_TOKEN")
+        options.accessToken = providers.environmentVariable(isCurse ? "CURSE_TOKEN" : "MODRINTH_TOKEN")
         options.displayName = "${project.name} ${name[0].toUpperCase() + name.substring(1)} ${mod_version}+mc${minecraft_version}"
         options.file = project.provider { project(":${name}").tasks.remapJar }.flatMap { it.archiveFile }
         options.modLoaders.add("Java 17")
