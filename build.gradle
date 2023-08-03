@@ -78,19 +78,19 @@ publishMods {
         }
     }
 
-    modrinth("modrinthForge") {
-        featured = true
-        from makeOptions("forge", false)
-    }
-
-    modrinth("modrinthFabric") {
-        featured = true
-        from makeOptions("fabric", false)
-
-        requires {
-            projectId = "P7dR8mSH" // Fabric api
-        }
-    }
+//    modrinth("modrinthForge") {
+//        featured = true
+//        from makeOptions("forge", false)
+//    }
+//
+//    modrinth("modrinthFabric") {
+//        featured = true
+//        from makeOptions("fabric", false)
+//
+//        requires {
+//            projectId = "P7dR8mSH" // Fabric api
+//        }
+//    }
 
     github {
         file = project.provider { project(":forge").tasks.jar }.flatMap { it.archiveFile }
