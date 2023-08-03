@@ -4,10 +4,10 @@ plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.3-SNAPSHOT" apply false
     id "com.matthewprenger.cursegradle" version "1.4.0" apply false
-    id "me.modmuss50.mod-publish-plugin" version "0.2.1"
+    id "me.modmuss50.mod-publish-plugin" version "0.3.0"
 }
 
-ext.isSnapshot = providers.environmentVariable("SNAPSHOT").map {it == "true"}.getOrElse(false)
+ext.isSnapshot = providers.environmentVariable("SNAPSHOT").map { it == "true" }.getOrElse(false)
 
 architectury {
     minecraft = rootProject.minecraft_version
@@ -52,45 +52,56 @@ allprojects {
 publishMods {
     dryRun = providers.environmentVariable("CURSE_TOKEN").getOrNull() == null
     changelog = file("./CHANGELOG.md").text
+    version = "${mod_version}"
     type = STABLE
 
-    def makeOptions = { String name, boolean isCurse ->
-        def options = (isCurse ? curseforgeOptions {} : modrinthOptions {}).get()
-        options.minecraftVersions.add("${minecraft_version}")
-        options.projectId = isCurse ? "${curseforge_id}" : "${modrinth_id}"
-        options.accessToken = providers.environmentVariable(isCurse ? "CURSE_TOKEN" : "MODRINTH_TOKEN")
-        options.displayName = "${project.name} ${name[0].toUpperCase() + name.substring(1)} ${mod_version}+mc${minecraft_version}"
-        options.file = project.provider { project(":${name}").tasks.remapJar }.flatMap { it.archiveFile }
-        options.modLoaders.add("Java 17")
-        options.modLoaders.add("${name}")
-        return options
+    def fabricOptions = publishOptions {
+        file = project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
+        displayName = "${project.name} Fabric ${mod_version}+mc${minecraft_version}"
+        modLoaders.add("fabric")
     }
 
-    curseforge("curseforgeForge") {
-        from makeOptions("forge", true)
+    def forgeOptions = publishOptions {
+        file = project.provider { project(":forge").tasks.remapJar }.flatMap { it.archiveFile }
+        displayName = "${project.name} Forge ${mod_version}+mc${minecraft_version}"
+        modLoaders.add("forge")
+    }
+
+    def curseForgeOptions = curseforgeOptions {
+        providers.environmentVariable("CURSE_TOKEN")
+        projectId = "${curseforge_id}"
+        minecraftVersions.add("${minecraft_version}")
+    }
+
+    def modrinthOptions = modrinthOptions {
+        providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = "${modrinth_id}"
+        minecraftVersions.add("${minecraft_version}")
     }
 
     curseforge("curseforgeFabric") {
-        from makeOptions("fabric", true)
-
+        from(curseForgeOptions, fabricOptions)
         requires {
             slug = "fabric-api"
         }
     }
 
-//    modrinth("modrinthForge") {
-//        featured = true
-//        from makeOptions("forge", false)
-//    }
-//
-//    modrinth("modrinthFabric") {
-//        featured = true
-//        from makeOptions("fabric", false)
-//
-//        requires {
-//            projectId = "P7dR8mSH" // Fabric api
-//        }
-//    }
+    curseforge("curseforgeForge") {
+        from(curseForgeOptions, forgeOptions)
+    }
+
+    if (providers.environmentVariable("MODRINTH_TOKEN").getOrNull() != null) {
+        modrinth("modrinthFabric") {
+            from(modrinthOptions, fabricOptions)
+            requires {
+                slug = "fabric-api"
+            }
+        }
+
+        modrinth("modrinthForge") {
+            from(modrinthOptions, forgeOptions)
+        }
+    }
 
     github {
         file = project.provider { project(":forge").tasks.remapJar }.flatMap { it.archiveFile }
@@ -100,5 +111,3 @@ publishMods {
         commitish = providers.environmentVariable("GITHUB_SHA").orElse("dryRun")
     }
 }
-
-//task publishMods
