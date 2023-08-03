@@ -68,13 +68,13 @@ publishMods {
     }
 
     def curseForgeOptions = curseforgeOptions {
-        providers.environmentVariable("CURSE_TOKEN")
+        accessToken = providers.environmentVariable("CURSE_TOKEN")
         projectId = "${curseforge_id}"
         minecraftVersions.add("${minecraft_version}")
     }
 
     def modrinthOptions = modrinthOptions {
-        providers.environmentVariable("MODRINTH_TOKEN")
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "${modrinth_id}"
         minecraftVersions.add("${minecraft_version}")
     }
