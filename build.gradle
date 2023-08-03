@@ -93,7 +93,7 @@ publishMods {
 //    }
 
     github {
-        file = project.provider { project(":forge").tasks.jar }.flatMap { it.archiveFile }
+        file = project.provider { project(":forge").tasks.remapJar }.flatMap { it.archiveFile }
         additionalFiles.from project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
         repository = "${github_repo}"
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
