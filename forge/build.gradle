@@ -72,8 +72,6 @@ components.java {
     }
 }
 
-def ENV = System.getenv()
-
 publishing {
     publications {
         mavenForge(MavenPublication) {
@@ -81,19 +79,15 @@ publishing {
             from components.java
         }
     }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        if (ENV.NANITE_TOKEN) {
+        if (providers.environmentVariable("NANITE_TOKEN").orNull) {
             maven {
-                url "https://maven.nanite.dev/releases"
+                url "${maven_url}${isSnapshot ? 'snapshots' : 'releases'}"
                 credentials {
                     username = "nanite"
-                    password = "${ENV.NANITE_TOKEN}"
+                    password = providers.environmentVariable("NANITE_TOKEN").get()
                 }
             }
         }
     }
 }
-
-//rootProject.tasks.getByName("curseforgePublish").dependsOn tasks.getByName("curseforge")
