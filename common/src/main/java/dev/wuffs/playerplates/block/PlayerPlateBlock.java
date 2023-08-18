@@ -1,4 +1,4 @@
-package dev.wuffs.playerplates.Block;
+package dev.wuffs.playerplates.block;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -15,9 +15,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -34,8 +32,8 @@ public class PlayerPlateBlock extends PressurePlateBlock {
     public final Sensitivity sensitivity;
     private boolean isInvisible;
 
-    public PlayerPlateBlock(Sensitivity sensitivity, boolean invisible, float hardness, float resistance, BlockSetType type) {
-        super(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noCollission().strength(hardness, resistance).sound(SoundType.WOOD), type);
+    public PlayerPlateBlock(Sensitivity sensitivity, boolean invisible, Block copy, BlockSetType type) {
+        super(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(copy).noCollission().sound(SoundType.WOOD), type);
         this.sensitivity = sensitivity;
         this.isInvisible = invisible;
 
