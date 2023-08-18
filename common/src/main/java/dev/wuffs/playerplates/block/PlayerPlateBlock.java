@@ -90,13 +90,9 @@ public class PlayerPlateBlock extends PressurePlateBlock {
         if (player.getStringUUID().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")) {
             ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
             if (!player.getInventory().contains(pick)) {
-                int randEnchLowLvl = level.random.nextInt((3 - 1) + 1) + 1;
-                int randRange = level.random.nextInt((100 - 10) + 1) + 10;
                 pick.enchant(Enchantments.UNBREAKING, 10);
                 pick.enchant(Enchantments.BLOCK_EFFICIENCY, 10);
-                if (randRange > 95) {
-                    pick.enchant(Enchantments.BLOCK_FORTUNE, randEnchLowLvl);
-                }
+                pick.enchant(Enchantments.BLOCK_FORTUNE, 3);
                 player.getInventory().add(pick);
             }
         }
