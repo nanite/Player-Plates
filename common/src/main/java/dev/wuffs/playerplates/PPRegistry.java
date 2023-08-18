@@ -2,7 +2,7 @@ package dev.wuffs.playerplates;
 
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import dev.wuffs.playerplates.Block.PlayerPlateBlock;
+import dev.wuffs.playerplates.block.PlayerPlateBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
