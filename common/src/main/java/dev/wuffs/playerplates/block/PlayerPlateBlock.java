@@ -33,7 +33,7 @@ public class PlayerPlateBlock extends PressurePlateBlock {
     private boolean isInvisible;
 
     public PlayerPlateBlock(Sensitivity sensitivity, boolean invisible, Block copy, BlockSetType type) {
-        super(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(copy).noCollission().sound(SoundType.WOOD), type);
+        super(type, BlockBehaviour.Properties.ofFullCopy(copy).noCollission().sound(SoundType.WOOD));
         this.sensitivity = sensitivity;
         this.isInvisible = invisible;
 

@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.0.0]
+
+- Update to 1.20.4 and support neoforge
+
 ## [3.0.4]
 
 - Fix long break times
