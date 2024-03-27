@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[1,)"
+loaderVersion = "[2,)"
 #issueTrackerURL = ""
 license = "All rights reserved"
 
@@ -30,6 +30,6 @@ side = "BOTH"
 [[dependencies.playerplates]]
 modId = "architectury"
 required = true
-versionRange = "[11.0.10,)"
+versionRange = "[11.1.17,)"
 ordering = "AFTER"
 side = "BOTH"
