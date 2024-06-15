@@ -1,6 +1,6 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.5-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
     id "me.modmuss50.mod-publish-plugin" version "0.5.1"
 }
 
@@ -39,7 +39,7 @@ allprojects {
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-        options.release = 17
+        options.release = 21
     }
 
     java {
@@ -57,12 +57,6 @@ publishMods {
         file = project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
         displayName = "${project.name} Fabric ${mod_version}+mc${minecraft_version}"
         modLoaders.add("fabric")
-    }
-
-    def forgeOptions = publishOptions {
-        file = project.provider { project(":forge").tasks.remapJar }.flatMap { it.archiveFile }
-        displayName = "${project.name} Forge ${mod_version}+mc${minecraft_version}"
-        modLoaders.add("forge")
     }
 
     def neoOptions = publishOptions {
@@ -90,10 +84,6 @@ publishMods {
         }
     }
 
-    curseforge("curseforgeForge") {
-        from(curseForgeOptions, forgeOptions)
-    }
-
     curseforge("curseforgeNeo") {
         from(curseForgeOptions, neoOptions)
     }
@@ -106,19 +96,14 @@ publishMods {
             }
         }
 
-        modrinth("modrinthForge") {
-            from(modrinthOptions, forgeOptions)
-        }
-
         modrinth("modrinthNeo") {
             from(modrinthOptions, neoOptions)
         }
     }
 
     github {
-        file = project.provider { project(":forge").tasks.remapJar }.flatMap { it.archiveFile }
+        file = project.provider { project(":neoforge").tasks.remapJar }.flatMap { it.archiveFile }
         additionalFiles.from project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
-        additionalFiles.from project.provider { project(":neoforge").tasks.remapJar }.flatMap { it.archiveFile }
         repository = "${github_repo}"
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
         commitish = providers.environmentVariable("GITHUB_SHA").orElse("dryRun")

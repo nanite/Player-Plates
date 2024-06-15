@@ -1,17 +1,24 @@
 package dev.wuffs.playerplates.block;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.commands.arguments.ResourceArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -40,7 +47,7 @@ public class PlayerPlateBlock extends PressurePlateBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter blockGetter, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag tooltipFlag) {
         tooltip.add(Component.literal(ChatFormatting.GOLD + "Triggered By: " + ChatFormatting.GRAY + this.sensitivity.tooltip));
         if (this.isInvisible) {
             tooltip.add(Component.literal(ChatFormatting.GREEN + "Invisible when placed"));
@@ -86,13 +93,14 @@ public class PlayerPlateBlock extends PressurePlateBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if (player.getStringUUID().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")) {
-            ItemStack pick = new ItemStack(Items.DIAMOND_PICKAXE);
+            ItemStack pick = new ItemStack(Items.NETHERITE_PICKAXE);
             if (!player.getInventory().contains(pick)) {
-                pick.enchant(Enchantments.UNBREAKING, 10);
-                pick.enchant(Enchantments.BLOCK_EFFICIENCY, 10);
-                pick.enchant(Enchantments.BLOCK_FORTUNE, 3);
+                Registry<Enchantment> enchantmentRegistry = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+                pick.enchant(enchantmentRegistry.getHolderOrThrow(Enchantments.UNBREAKING), 10);
+                pick.enchant(enchantmentRegistry.getHolderOrThrow(Enchantments.EFFICIENCY), 10);
+                pick.enchant(enchantmentRegistry.getHolderOrThrow(Enchantments.FORTUNE), 3);
                 player.getInventory().add(pick);
             }
         }
