@@ -16,20 +16,20 @@ Obsidian pressure plates and mossy plates
 [[dependencies.playerplates]]
 modId = "neoforge"
 required = true
-versionRange = "[1,)"
+versionRange = "[2,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.playerplates]]
 modId = "minecraft"
 required = true
-versionRange = "[1.20.4,)"
+versionRange = "[1.21,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.playerplates]]
 modId = "architectury"
 required = true
-versionRange = "[11.1.17,)"
+versionRange = "[13.0.1,)"
 ordering = "AFTER"
 side = "BOTH"
