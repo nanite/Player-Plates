@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "OO"
+  ],
+  "result": {
+    "count": 1,
+    "id": "playerplates:obsidian_plate"
+  }
+}

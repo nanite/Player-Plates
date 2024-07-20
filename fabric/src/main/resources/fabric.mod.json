@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "dev.wuffs.playerplates.PlayerPlates::init"
+    ],
+    "fabric-datagen": [
+      "dev.wuffs.fabric.DataGens"
     ]
   },
   "depends": {

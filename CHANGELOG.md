@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [21.0.3]
+
+- Fix crafting recipes
+
 ## [21.0.2]
 
 - Bump fabric/neo versions

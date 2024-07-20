@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "M": {
+      "item": "minecraft:mossy_cobblestone"
+    }
+  },
+  "pattern": [
+    "MM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "playerplates:mossy_plate"
+  }
+}

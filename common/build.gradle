@@ -14,6 +14,8 @@ dependencies {
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 }
 
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
 publishing {
     publications {
         mavenCommon(MavenPublication) {
