@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "M": {
-      "item": "minecraft:mossy_cobblestone"
-    }
+    "M": "minecraft:mossy_cobblestone"
   },
   "pattern": [
     "MM"

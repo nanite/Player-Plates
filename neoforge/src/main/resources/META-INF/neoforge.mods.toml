@@ -11,25 +11,26 @@ authors = "Gaz"
 description = '''
 Obsidian pressure plates and mossy plates
 '''
+credits = "ktraw2"
 #logoFile = ""
 
 [[dependencies.playerplates]]
 modId = "neoforge"
 required = true
-versionRange = "[2,)"
+versionRange = "[21.8,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.playerplates]]
 modId = "minecraft"
 required = true
-versionRange = "[1.21,)"
+versionRange = "[1.21.8,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.playerplates]]
 modId = "architectury"
 required = true
-versionRange = "[13.0.1,)"
+versionRange = "[17.0,)"
 ordering = "AFTER"
 side = "BOTH"
