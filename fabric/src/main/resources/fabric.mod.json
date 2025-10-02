@@ -7,6 +7,9 @@
   "authors": [
     "Gaz"
   ],
+  "contributors": [
+    "ktraw2"
+  ],
   "contact": {
     "homepage": "https://github.com/nanite/Player-Plates",
     "sources": "https://github.com/nanite/Player-Plates"
@@ -24,7 +27,7 @@
   },
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.19.2",
-    "architectury": ">=6.2.43"
+    "minecraft": ">=1.21.8",
+    "architectury": ">=17.0"
   }
 }

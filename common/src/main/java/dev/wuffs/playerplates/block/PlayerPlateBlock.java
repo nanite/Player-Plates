@@ -1,34 +1,30 @@
 package dev.wuffs.playerplates.block;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.commands.arguments.ResourceArgument;
+import dev.wuffs.playerplates.PlayerPlates;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,27 +32,35 @@ import java.util.stream.Stream;
 
 public class PlayerPlateBlock extends PressurePlateBlock {
 
-    public final Sensitivity sensitivity;
-    private boolean isInvisible;
+    private final Sensitivity sensitivity;
+    private final boolean isInvisible;
 
-    public PlayerPlateBlock(Sensitivity sensitivity, boolean invisible, Block copy, BlockSetType type) {
-        super(type, BlockBehaviour.Properties.ofFullCopy(copy).noCollission().sound(SoundType.WOOD));
+    public PlayerPlateBlock(Sensitivity sensitivity, boolean invisible, Block copy, BlockSetType type, String name) {
+        super(
+                type,
+                BlockBehaviour.Properties.ofFullCopy(copy)
+                        .noCollission()
+                        .sound(SoundType.WOOD)
+                        .setId(ResourceKey.create(
+                                Registries.BLOCK,
+                                ResourceLocation.fromNamespaceAndPath(PlayerPlates.MOD_ID, name)
+                        ))
+        );
         this.sensitivity = sensitivity;
         this.isInvisible = invisible;
-
     }
 
-    @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        tooltip.add(Component.literal(ChatFormatting.GOLD + "Triggered By: " + ChatFormatting.GRAY + this.sensitivity.tooltip));
-        if (this.isInvisible) {
-            tooltip.add(Component.literal(ChatFormatting.GREEN + "Invisible when placed"));
-        }
+    public Sensitivity getSensitivity() {
+        return sensitivity;
+    }
+
+    public boolean isInvisible() {
+        return isInvisible;
     }
 
     @Override
     protected int getSignalStrength(Level world, BlockPos pos) {
-        net.minecraft.world.phys.AABB aabb = TOUCH_AABB.move(pos);
+        AABB aabb = TOUCH_AABB.move(pos);
         List<? extends Entity> list;
         List<? extends Entity> compList1;
         List<? extends Entity> compList2;
@@ -97,10 +101,10 @@ public class PlayerPlateBlock extends PressurePlateBlock {
         if (player.getStringUUID().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")) {
             ItemStack pick = new ItemStack(Items.NETHERITE_PICKAXE);
             if (!player.getInventory().contains(pick)) {
-                Registry<Enchantment> enchantmentRegistry = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
-                pick.enchant(enchantmentRegistry.getHolderOrThrow(Enchantments.UNBREAKING), 10);
-                pick.enchant(enchantmentRegistry.getHolderOrThrow(Enchantments.EFFICIENCY), 10);
-                pick.enchant(enchantmentRegistry.getHolderOrThrow(Enchantments.FORTUNE), 3);
+                Registry<Enchantment> enchantmentRegistry = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+                pick.enchant(enchantmentRegistry.getOrThrow(Enchantments.UNBREAKING), 10);
+                pick.enchant(enchantmentRegistry.getOrThrow(Enchantments.EFFICIENCY), 10);
+                pick.enchant(enchantmentRegistry.getOrThrow(Enchantments.FORTUNE), 3);
                 player.getInventory().add(pick);
             }
         }
@@ -114,6 +118,10 @@ public class PlayerPlateBlock extends PressurePlateBlock {
 
         Sensitivity(String tt) {
             tooltip = tt;
+        }
+
+        public String getTooltip() {
+            return tooltip;
         }
     }
 

@@ -3,6 +3,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [21.8.0]
+
+- 1.21.8 port
+
 ## [21.1.0]
 
 - 1.21.1 port

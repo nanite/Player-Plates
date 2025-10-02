@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "G": {
-      "item": "minecraft:glass_pane"
-    },
-    "M": {
-      "item": "minecraft:mossy_cobblestone"
-    }
+    "G": "minecraft:glass_pane",
+    "M": "minecraft:mossy_cobblestone"
   },
   "pattern": [
     "GM"

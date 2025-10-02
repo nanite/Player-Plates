@@ -1,0 +1,9 @@
+// 1.21.8	-999999999-01-01T00:00:00	Player Plates/playerplates recipes
+9b61191d38b0b17e674d6e4525d016454bb4308c data/playerplates/advancement/recipes/redstone/invisible_mossy_plate.json
+3b84335c98350eecee33f9a6ef8dabdbfb87bfd5 data/playerplates/advancement/recipes/redstone/invisible_obsidian_plate.json
+f420201bf436da372edaec15a9f10acdd7af72d8 data/playerplates/advancement/recipes/redstone/mossy_plate.json
+d1a5b52d2b7430d4d672267433c2ffc9a97689b1 data/playerplates/advancement/recipes/redstone/obsidian_plate.json
+42956cfc0c894aa4de9201a3f877c8d13de79423 data/playerplates/recipe/invisible_mossy_plate.json
+00211b9c1e0f730f32772f735a3cd66bcfadc70b data/playerplates/recipe/invisible_obsidian_plate.json
+b7e1b90010aa731135b288d7512c64a0ad346310 data/playerplates/recipe/mossy_plate.json
+c5633abdf393c4c09b6e00315ce60485736aa185 data/playerplates/recipe/obsidian_plate.json
