@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -39,11 +39,11 @@ public class PlayerPlateBlock extends PressurePlateBlock {
         super(
                 type,
                 BlockBehaviour.Properties.ofFullCopy(copy)
-                        .noCollission()
+                        .noCollision()
                         .sound(SoundType.WOOD)
                         .setId(ResourceKey.create(
                                 Registries.BLOCK,
-                                ResourceLocation.fromNamespaceAndPath(PlayerPlates.MOD_ID, name)
+                                Identifier.fromNamespaceAndPath(PlayerPlates.MOD_ID, name)
                         ))
         );
         this.sensitivity = sensitivity;
