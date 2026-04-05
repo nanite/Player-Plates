@@ -1,4 +1,4 @@
-package dev.wuffs.fabric;
+package dev.wuffs.playerplates.data;
 
 import dev.wuffs.playerplates.PlayerPlates;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;

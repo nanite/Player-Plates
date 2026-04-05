@@ -1,4 +1,4 @@
-package dev.wuffs.fabric;
+package dev.wuffs.playerplates.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;

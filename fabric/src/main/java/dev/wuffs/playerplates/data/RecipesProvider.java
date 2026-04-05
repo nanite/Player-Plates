@@ -1,4 +1,4 @@
-package dev.wuffs.fabric;
+package dev.wuffs.playerplates.data;
 
 import dev.wuffs.playerplates.PPRegistry;
 import net.minecraft.core.HolderGetter;

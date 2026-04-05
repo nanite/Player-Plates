@@ -22,7 +22,7 @@
       "dev.wuffs.playerplates.fabric.PlayerPlatesFabric"
     ],
     "fabric-datagen": [
-      "dev.wuffs.fabric.DataGens"
+      "dev.wuffs.playerplates.data.DataGens"
     ]
   },
   "depends": {

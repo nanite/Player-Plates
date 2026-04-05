@@ -35,3 +35,5 @@ configurations {
 java {
     withSourcesJar()
 }
+
+sourceSets.main.resources { srcDir project(":common").file('src/generated/resources') }
