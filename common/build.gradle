@@ -1,26 +1,13 @@
-architectury {
-    common(rootProject.enabled_platforms.split(","))
+plugins {
+    id 'net.fabricmc.fabric-loom'
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/examplemod.accesswidener")
 }
 
 dependencies {
-    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
-    // Do NOT use other classes from fabric loader
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
-}
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-sourceSets.main.resources.srcDir 'src/generated/resources'
-
-publishing {
-    publications {
-        mavenCommon(MavenPublication) {
-            artifactId = rootProject.archives_base_name
-            from components.java
-        }
-    }
+    compileOnly group: 'net.fabricmc', name: 'sponge-mixin', version: '0.17.0+mixin.0.8.7'
+    compileOnly "io.github.llamalad7:mixinextras-fabric:0.5.0"
 }

@@ -1,65 +1,108 @@
 plugins {
-    id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.10-SNAPSHOT" apply false
-    id "me.modmuss50.mod-publish-plugin" version "0.5.1"
-}
-
-ext.isSnapshot = providers.environmentVariable("SNAPSHOT").map { it == "true" }.getOrElse(false)
-
-architectury {
-    minecraft = rootProject.minecraft_version
-}
-
-subprojects {
-    apply plugin: "dev.architectury.loom"
-
-    loom {
-        silentMojangMappingsLicense()
-    }
-
-    dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        mappings loom.officialMojangMappings()
-    }
+    id 'java-library'
+    id 'fabric-loom' version '1.15-SNAPSHOT' apply(false)
+    id 'net.neoforged.moddev' version '2.0.141' apply(false)
+    id "me.modmuss50.mod-publish-plugin" version "1.1.0"
+    id 'pro.mikey.plugins.insaniam' version "0.1-SNAPSHOT"
 }
 
 allprojects {
-    apply plugin: "java"
-    apply plugin: "architectury-plugin"
-    apply plugin: "maven-publish"
+    apply plugin: 'idea'
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
 
-    archivesBaseName = rootProject.archives_base_name
-    version = "${mod_version}+mc${minecraft_version}${isSnapshot ? '-SNAPSHOT' : ''}"
-    group = rootProject.maven_group
+    version = mod_version
+    group = maven_group
 
-    repositories {
-        maven { url "https://maven.neoforged.net/releases"}
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = 25
     }
 
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-        options.release = 21
+    idea {
+        module {
+            downloadSources = true
+            downloadJavadoc = true
+        }
+    }
+}
+
+subprojects {
+    base {
+        archivesName = "${archives_base_name}-$project.name"
     }
 
-    java {
-        withSourcesJar()
+    if (project.name != "common") {
+        dependencies {
+            api project(":common")
+        }
+
+        jar {
+            from project(":common").sourceSets.main.output
+        }
     }
+
+    def replaceProperties = [
+            mod_id: mod_id,
+            minecraft_version: minecraft_version,
+            neoforge_version: neoforge_version,
+            fabric_loader_version: fabric_loader_version,
+            fabric_api_version: fabric_api_version,
+            version: version,
+    ]
+
+    processResources {
+        inputs.properties replaceProperties
+
+        filesMatching(["META-INF/neoforge.mods.toml", "fabric.mod.json", "pack.mcmeta"]) {
+            expand replaceProperties
+        }
+    }
+
+    publishing {
+        publications {
+            register("maven${project.name.capitalize()}", MavenPublication) {
+                artifactId = "${rootProject.archives_base_name}-${project.name}"
+                from components.java
+            }
+        }
+
+        repositories {
+            def token = providers.environmentVariable("NANITE_TOKEN");
+            if (token.isPresent()) {
+                maven {
+                    url "https://maven.nanite.dev/releases"
+                    credentials {
+                        username = "nanite"
+                        password = providers.environmentVariable("NANITE_TOKEN").get()
+                    }
+                }
+            }
+        }
+    }
+}
+
+def changelogData = insaniamUtils.createChangelog {
+    file = file('CHANGELOG.md')
+    versionPattern = ~/## \[[^]]+]/
+    fallbackValue = "No changelog provided"
+    version = project.mod_version
 }
 
 publishMods {
     dryRun = providers.environmentVariable("CURSE_TOKEN").getOrNull() == null
-    changelog = file("./CHANGELOG.md").text
+    changelog = changelogData
     version = "${mod_version}"
     type = STABLE
 
     def fabricOptions = publishOptions {
-        file = project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
+        file = project.provider { project(":fabric").tasks.jar }.flatMap { it.archiveFile }
         displayName = "${project.name} Fabric ${mod_version}+mc${minecraft_version}"
         modLoaders.add("fabric")
     }
 
     def neoOptions = publishOptions {
-        file = project.provider { project(":neoforge").tasks.remapJar }.flatMap { it.archiveFile }
+        file = project.provider { project(":neoforge").tasks.jar }.flatMap { it.archiveFile }
         displayName = "${project.name} NeoForged ${mod_version}+mc${minecraft_version}"
         modLoaders.add("neoforge")
     }
@@ -68,12 +111,14 @@ publishMods {
         accessToken = providers.environmentVariable("CURSE_TOKEN")
         projectId = "${curseforge_id}"
         minecraftVersions.add("${minecraft_version}")
+        minecraftVersions.add("26.1")
     }
 
     def modrinthOptions = modrinthOptions {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "${modrinth_id}"
         minecraftVersions.add("${minecraft_version}")
+        minecraftVersions.add("26.1")
     }
 
     curseforge("curseforgeFabric") {
@@ -101,8 +146,8 @@ publishMods {
     }
 
     github {
-        file = project.provider { project(":neoforge").tasks.remapJar }.flatMap { it.archiveFile }
-        additionalFiles.from project.provider { project(":fabric").tasks.remapJar }.flatMap { it.archiveFile }
+        file = project.provider { project(":neoforge").tasks.jar }.flatMap { it.archiveFile }
+        additionalFiles.from project.provider { project(":fabric").tasks.jar }.flatMap { it.archiveFile }
         repository = "${github_repo}"
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
         commitish = providers.environmentVariable("GITHUB_SHA").orElse("dryRun")

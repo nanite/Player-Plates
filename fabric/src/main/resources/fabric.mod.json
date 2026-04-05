@@ -19,15 +19,12 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.wuffs.playerplates.PlayerPlates::init"
+      "dev.wuffs.playerplates.fabric.PlayerPlatesFabric"
     ],
     "fabric-datagen": [
       "dev.wuffs.fabric.DataGens"
     ]
   },
   "depends": {
-    "fabric": "*",
-    "minecraft": ">=1.21.8",
-    "architectury": ">=17.0"
   }
 }

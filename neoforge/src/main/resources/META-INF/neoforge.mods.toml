@@ -27,10 +27,3 @@ required = true
 versionRange = "[1.21.8,)"
 ordering = "NONE"
 side = "BOTH"
-
-[[dependencies.playerplates]]
-modId = "architectury"
-required = true
-versionRange = "[17.0,)"
-ordering = "AFTER"
-side = "BOTH"
