@@ -17,20 +17,20 @@ credits = "ktraw2"
 [[dependencies.playerplates]]
 modId = "neoforge"
 required = true
-versionRange = "[21.8,)"
+versionRange = "[21.11,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.playerplates]]
 modId = "minecraft"
 required = true
-versionRange = "[1.21.8,)"
+versionRange = "[1.21.11,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.playerplates]]
 modId = "architectury"
 required = true
-versionRange = "[17.0,)"
+versionRange = "[19.0,)"
 ordering = "AFTER"
 side = "BOTH"
