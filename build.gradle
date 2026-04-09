@@ -1,3 +1,5 @@
+//file:noinspection GroovyAssignabilityCheck
+
 plugins {
     id 'java-library'
     id 'fabric-loom' version '1.15-SNAPSHOT' apply(false)
@@ -94,6 +96,7 @@ publishMods {
     changelog = changelogData
     version = "${mod_version}"
     type = STABLE
+    def compatibleMcVersions = extra_compatible_minecraft_versions.split(',')
 
     def fabricOptions = publishOptions {
         file = project.provider { project(":fabric").tasks.jar }.flatMap { it.archiveFile }
@@ -111,14 +114,18 @@ publishMods {
         accessToken = providers.environmentVariable("CURSE_TOKEN")
         projectId = "${curseforge_id}"
         minecraftVersions.add("${minecraft_version}")
-        minecraftVersions.add("26.1")
+        compatibleMcVersions.each { mcVer ->
+            minecraftVersions.add(mcVer.trim())
+        }
     }
 
     def modrinthOptions = modrinthOptions {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "${modrinth_id}"
         minecraftVersions.add("${minecraft_version}")
-        minecraftVersions.add("26.1")
+        compatibleMcVersions.each { mcVer ->
+            minecraftVersions.add(mcVer.trim())
+        }
     }
 
     curseforge("curseforgeFabric") {
