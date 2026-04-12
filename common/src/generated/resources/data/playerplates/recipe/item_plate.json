@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": "minecraft:copper_block"
+  },
+  "pattern": [
+    "CC"
+  ],
+  "result": {
+    "id": "playerplates:item_plate"
+  }
+}

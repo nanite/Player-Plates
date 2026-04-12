@@ -67,10 +67,17 @@ public class PlayerPlateBlock extends PressurePlateBlock {
             case PLAYER:
                 list = world.getEntitiesOfClass(Player.class, aabb);
                 break;
-            case ITEMS_MOB:
+            case ITEMS_MOBS:
                 compList1 = world.getEntitiesOfClass(ItemEntity.class, aabb);
                 compList2 = world.getEntitiesOfClass(Mob.class, aabb);
                 list = Stream.concat(compList1.stream(), compList2.stream()).collect(Collectors.toList());
+                break;
+            case ITEMS:
+                list = world.getEntitiesOfClass(ItemEntity.class, aabb);
+                break;
+            case PASSIVE_MOB:
+                List<Mob> mobList = world.getEntitiesOfClass(Mob.class, aabb);
+                list = mobList.stream().filter(m -> m.isAlive() && m.getType().isAllowedInPeaceful()).collect(Collectors.toList());
                 break;
             default:
                 return 0;
@@ -112,7 +119,9 @@ public class PlayerPlateBlock extends PressurePlateBlock {
 
     public enum Sensitivity {
         PLAYER("Players Only"),
-        ITEMS_MOB("Items & Mobs");
+        ITEMS_MOBS("Items & Mobs"),
+        ITEMS("Items Only"),
+        PASSIVE_MOB("Friendly Mobs Only");
         private final String tooltip;
 
         Sensitivity(String tt) {

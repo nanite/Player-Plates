@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "playerplates:block/invisible_passive_mob_plate"
+  }
+}

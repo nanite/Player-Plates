@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "playerplates:block/passive_mob_plate"
+    },
+    "powered=true": {
+      "model": "playerplates:block/passive_mob_plate_down"
+    }
+  }
+}

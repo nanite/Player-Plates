@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "G": "minecraft:glass_pane",
-    "O": "minecraft:obsidian"
+    "O": "playerplates:obsidian_plate"
   },
   "pattern": [
     "GO"

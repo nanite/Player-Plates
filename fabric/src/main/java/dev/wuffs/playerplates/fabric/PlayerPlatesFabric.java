@@ -19,15 +19,10 @@ import java.util.List;
 public class PlayerPlatesFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        Registry.register(BuiltInRegistries.BLOCK, PPRegistry.OBSIDIAN_PLATE_ID, PPRegistry.OBSIDIAN_PLATE_BLOCK);
-        Registry.register(BuiltInRegistries.BLOCK, PPRegistry.INVISIBLE_OBSIDIAN_PLATE_ID, PPRegistry.INVISIBLE_OBSIDIAN_PLATE_BLOCK);
-        Registry.register(BuiltInRegistries.BLOCK, PPRegistry.MOSSY_PLATE_ID, PPRegistry.MOSSY_PLATE_BLOCK);
-        Registry.register(BuiltInRegistries.BLOCK, PPRegistry.INVISIBLE_MOSSY_PLATE_ID, PPRegistry.INVISIBLE_MOSSY_PLATE_BLOCK);
-
-        Registry.register(BuiltInRegistries.ITEM, PPRegistry.OBSIDIAN_PLATE_ID, PPRegistry.OBSIDIAN_PLATE_ITEM);
-        Registry.register(BuiltInRegistries.ITEM, PPRegistry.INVISIBLE_OBSIDIAN_PLATE_ID, PPRegistry.INVISIBLE_OBSIDIAN_PLATE_ITEM);
-        Registry.register(BuiltInRegistries.ITEM, PPRegistry.MOSSY_PLATE_ID, PPRegistry.MOSSY_PLATE_ITEM);
-        Registry.register(BuiltInRegistries.ITEM, PPRegistry.INVISIBLE_MOSSY_PLATE_ID, PPRegistry.INVISIBLE_MOSSY_PLATE_ITEM);
+        PPRegistry.ALL_PLATES.forEach(plateEntry -> {
+            Registry.register(BuiltInRegistries.BLOCK, plateEntry.id(), plateEntry.block());
+            Registry.register(BuiltInRegistries.ITEM, plateEntry.id(), plateEntry.item());
+        });
 
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, CREATIVE_TAB_KEY, CUSTOM_CREATIVE_TAB);
     }
@@ -35,7 +30,7 @@ public class PlayerPlatesFabric implements ModInitializer {
     public static final ResourceKey<CreativeModeTab> CREATIVE_TAB_KEY = ResourceKey.create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), PlayerPlates.CREATIVE_TAB_ID);
 
     public static final CreativeModeTab CUSTOM_CREATIVE_TAB = FabricCreativeModeTab.builder()
-            .icon(() -> new ItemStack(PPRegistry.OBSIDIAN_PLATE_ITEM))
+            .icon(() -> new ItemStack(PPRegistry.OBSIDIAN_PLATE.item()))
             .title(Component.translatable("itemGroup.playerplates.player_plates"))
             .displayItems((params, output) -> {
                 PPRegistry.TAB_ITEMS.forEach(item -> output.accept(item.getDefaultInstance()));

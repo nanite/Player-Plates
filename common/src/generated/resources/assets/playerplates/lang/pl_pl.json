@@ -1,0 +1,11 @@
+{
+  "block.playerplates.invisible_item_plate": "Invisible Copper Pressure Plate",
+  "block.playerplates.invisible_mossy_plate": "Omszona brukowa płyta naciskowa (niewidzialna)",
+  "block.playerplates.invisible_obsidian_plate": "Obsydianowa płyta naciskowa (niewidzialna)",
+  "block.playerplates.invisible_passive_mob_plate": "Invisible Mossy Mob Pressure Plate",
+  "block.playerplates.item_plate": "Copper Pressure Plate",
+  "block.playerplates.mossy_plate": "Omszona brukowa płyta naciskowa",
+  "block.playerplates.obsidian_plate": "Obsydianowa płyta naciskowa",
+  "block.playerplates.passive_mob_plate": "Mossy Pressure Plate",
+  "itemGroup.playerplates.player_plates": "Player Plates"
+}

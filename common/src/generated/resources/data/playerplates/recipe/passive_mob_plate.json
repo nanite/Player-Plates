@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "M": "minecraft:moss_block"
+  },
+  "pattern": [
+    "MM"
+  ],
+  "result": {
+    "id": "playerplates:passive_mob_plate"
+  }
+}

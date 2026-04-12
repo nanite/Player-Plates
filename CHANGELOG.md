@@ -2,6 +2,13 @@
 
 
 All notable changes to this project will be documented in this file.
+## [26.1.2.1]
+
+- Added new pressure plates
+  - Item pressure plate
+  - Passive mobs pressure plate
+- Various backend changes to make registration easier
+
 ## [26.1.1.2]
 
 - Fix missing recipes

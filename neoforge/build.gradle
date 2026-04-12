@@ -32,6 +32,9 @@ configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
 
+dependencies {
+}
+
 java {
     withSourcesJar()
 }

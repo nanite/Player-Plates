@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "playerplates:block/obsidian_plate"
+    },
+    "powered=true": {
+      "model": "playerplates:block/obsidian_plate_down"
+    }
+  }
+}

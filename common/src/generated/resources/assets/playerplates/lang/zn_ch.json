@@ -1,0 +1,11 @@
+{
+  "block.playerplates.invisible_item_plate": "Invisible Item Pressure Plate",
+  "block.playerplates.invisible_mossy_plate": "苔石压力板（隐形）",
+  "block.playerplates.invisible_obsidian_plate": "黑曜石压力板（隐形）",
+  "block.playerplates.invisible_passive_mob_plate": "Invisible Passive Mob Pressure Plate",
+  "block.playerplates.item_plate": "Item Pressure Plate",
+  "block.playerplates.mossy_plate": "苔石压力板",
+  "block.playerplates.obsidian_plate": "黑曜石压力板",
+  "block.playerplates.passive_mob_plate": "Passive Mob Pressure Plate",
+  "itemGroup.playerplates.player_plates": "Player Plates"
+}

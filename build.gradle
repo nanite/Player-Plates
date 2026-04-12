@@ -21,6 +21,12 @@ allprojects {
         options.release = 25
     }
 
+    repositories {
+        maven {
+            url = "https://maven.nanite.dev/releases"
+        }
+    }
+
     idea {
         module {
             downloadSources = true

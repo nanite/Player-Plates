@@ -3,12 +3,12 @@
   "category": "redstone",
   "key": {
     "G": "minecraft:glass_pane",
-    "M": "playerplates:mossy_plate"
+    "M": "playerplates:passive_mob_plate"
   },
   "pattern": [
     "GM"
   ],
   "result": {
-    "id": "playerplates:invisible_mossy_plate"
+    "id": "playerplates:invisible_passive_mob_plate"
   }
 }

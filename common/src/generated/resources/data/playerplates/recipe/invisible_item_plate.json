@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": "playerplates:item_plate",
+    "G": "minecraft:glass_pane"
+  },
+  "pattern": [
+    "GC"
+  ],
+  "result": {
+    "id": "playerplates:invisible_item_plate"
+  }
+}

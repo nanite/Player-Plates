@@ -3,6 +3,10 @@
     "playerplates:obsidian_plate",
     "playerplates:invisible_obsidian_plate",
     "playerplates:mossy_plate",
-    "playerplates:invisible_mossy_plate"
+    "playerplates:invisible_mossy_plate",
+    "playerplates:item_plate",
+    "playerplates:invisible_item_plate",
+    "playerplates:passive_mob_plate",
+    "playerplates:invisible_passive_mob_plate"
   ]
 }
