@@ -10,4 +10,5 @@ dependencies {
 
     compileOnly group: 'net.fabricmc', name: 'sponge-mixin', version: '0.17.0+mixin.0.8.7'
     compileOnly "io.github.llamalad7:mixinextras-fabric:0.5.0"
+    compileOnly("dev.nanite.mods:nanite-library-common:${nanite_library_version}")
 }
