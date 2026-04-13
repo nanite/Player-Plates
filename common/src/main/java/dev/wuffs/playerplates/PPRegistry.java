@@ -2,6 +2,7 @@ package dev.wuffs.playerplates;
 
 import dev.nanite.library.core.registry.NaniteRegistry;
 import dev.nanite.library.core.registry.RegistryHolder;
+import dev.nanite.library.core.weirdness.CreativeModeTabBuilder;
 import dev.nanite.library.platform.Platform;
 import dev.wuffs.playerplates.block.PlayerPlateBlock;
 import net.minecraft.ChatFormatting;
@@ -24,12 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PPRegistry {
-    public record PlateEntry(String name, PlayerPlateBlock block, Item item) {
-        public Identifier id() {
-            return Identifier.fromNamespaceAndPath(PlayerPlates.MOD_ID, name);
-        }
-    }
-
     public static final NaniteRegistry<Block> BLOCKS = NaniteRegistry.create(PlayerPlates.MOD_ID, BuiltInRegistries.BLOCK);
     public static final NaniteRegistry<Item> ITEMS = NaniteRegistry.create(PlayerPlates.MOD_ID, BuiltInRegistries.ITEM);
 
@@ -61,15 +56,13 @@ public class PPRegistry {
 
     public static final RegistryHolder<CreativeModeTab, CreativeModeTab> CUSTOM_CREATIVE_TAB =
             CREATIVE_MODE_TABS.register("playerplates", () ->
-                    Platform.INSTANCE.weirdness().createItemGroupBuilder()
-                            .title(Component.translatable("itemGroup.playerplates.player_plates"))
-                            .icon(() -> new ItemStack(PPRegistry.OBSIDIAN_PLATE_ITEM.get()))
-                            .displayItems((parameters, output) ->
-                                    ITEMS.entries().forEach(entry -> output.accept(new ItemStack(entry.get()))))
+                    new CreativeModeTabBuilder(Component.translatable("itemGroup.playerplates.player_plates"))
+                            .iconFromItem(PPRegistry.OBSIDIAN_PLATE_ITEM::get)
+                            .populateFromRegistry(ITEMS)
                             .build());
 
     private static RegistryHolder<Block, PlayerPlateBlock> plate(String name, PlayerPlateBlock.Sensitivity sensitivity, boolean invisible, Block base, BlockSetType setType) {
-        return BLOCKS.register(name, () -> new PlayerPlateBlock(sensitivity, invisible, base, setType, name));
+        return BLOCKS.registerPassKey(name, (resourceKey) -> new PlayerPlateBlock(resourceKey, sensitivity, invisible, base, setType));
     }
 
     private static RegistryHolder<Item, BlockItem> blockItem(Identifier id, RegistryHolder<Block, PlayerPlateBlock> heldBlock) {
