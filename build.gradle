@@ -22,6 +22,7 @@ allprojects {
     }
 
     repositories {
+        mavenLocal()
         maven {
             url = "https://maven.nanite.dev/releases"
         }
@@ -136,25 +137,25 @@ publishMods {
 
     curseforge("curseforgeFabric") {
         from(curseForgeOptions, fabricOptions)
-        requires {
-            slug = "fabric-api"
-        }
+        requires("fabric-api")
+        requires("nanite-library")
     }
 
     curseforge("curseforgeNeo") {
         from(curseForgeOptions, neoOptions)
+        requires("nanite-library")
     }
 
     if (providers.environmentVariable("MODRINTH_TOKEN").getOrNull() != null) {
         modrinth("modrinthFabric") {
             from(modrinthOptions, fabricOptions)
-            requires {
-                slug = "fabric-api"
-            }
+            requires("fabric-api")
+//            requires("nanite-library")
         }
 
         modrinth("modrinthNeo") {
             from(modrinthOptions, neoOptions)
+//            requires("nanite-library")
         }
     }
 
@@ -164,5 +165,6 @@ publishMods {
         repository = "${github_repo}"
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
         commitish = providers.environmentVariable("GITHUB_SHA").orElse("dryRun")
+        tagName = providers.environmentVariable("GITHUB_REF_NAME").orElse("dryRun")
     }
 }

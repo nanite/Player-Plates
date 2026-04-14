@@ -24,17 +24,17 @@ public class ModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {
-        registerPressurePlate(blockModelGenerators, PPRegistry.OBSIDIAN_PLATE.block(), Blocks.OBSIDIAN);
-        registerPressurePlate(blockModelGenerators, PPRegistry.INVISIBLE_OBSIDIAN_PLATE.block(), Blocks.OBSIDIAN);
+        registerPressurePlate(blockModelGenerators, PPRegistry.OBSIDIAN_PLATE.get(), Blocks.OBSIDIAN);
+        registerPressurePlate(blockModelGenerators, PPRegistry.INVISIBLE_OBSIDIAN_PLATE.get(), Blocks.OBSIDIAN);
 
-        registerPressurePlate(blockModelGenerators, PPRegistry.MOSSY_PLATE.block(), Blocks.MOSSY_COBBLESTONE);
-        registerPressurePlate(blockModelGenerators, PPRegistry.INVISIBLE_MOSSY_PLATE.block(), Blocks.MOSSY_COBBLESTONE);
+        registerPressurePlate(blockModelGenerators, PPRegistry.MOSSY_PLATE.get(), Blocks.MOSSY_COBBLESTONE);
+        registerPressurePlate(blockModelGenerators, PPRegistry.INVISIBLE_MOSSY_PLATE.get(), Blocks.MOSSY_COBBLESTONE);
 
-        registerPressurePlate(blockModelGenerators, PPRegistry.ITEM_PLATE.block(), Blocks.COPPER_BLOCK);
-        registerPressurePlate(blockModelGenerators, PPRegistry.INVISIBLE_ITEM_PLATE.block(), Blocks.COPPER_BLOCK);
+        registerPressurePlate(blockModelGenerators, PPRegistry.ITEM_PLATE.get(), Blocks.COPPER_BLOCK);
+        registerPressurePlate(blockModelGenerators, PPRegistry.INVISIBLE_ITEM_PLATE.get(), Blocks.COPPER_BLOCK);
 
-        registerPressurePlate(blockModelGenerators, PPRegistry.PASSIVE_MOB_PLATE.block(), Blocks.MOSS_BLOCK);
-        registerPressurePlate(blockModelGenerators, PPRegistry.INVISIBLE_PASSIVE_MOB_PLATE.block(), Blocks.MOSS_BLOCK);
+        registerPressurePlate(blockModelGenerators, PPRegistry.PASSIVE_MOB_PLATE.get(), Blocks.MOSS_BLOCK);
+        registerPressurePlate(blockModelGenerators, PPRegistry.INVISIBLE_PASSIVE_MOB_PLATE.get(), Blocks.MOSS_BLOCK);
     }
 
     @Override

@@ -29,6 +29,8 @@ dependencies {
 
     implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    api "dev.nanite.mods:nanite-library-fabric:${nanite_library_version}"
 }
 
 java {

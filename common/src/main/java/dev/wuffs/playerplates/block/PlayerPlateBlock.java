@@ -1,10 +1,8 @@
 package dev.wuffs.playerplates.block;
 
-import dev.wuffs.playerplates.PlayerPlates;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -35,15 +33,12 @@ public class PlayerPlateBlock extends PressurePlateBlock {
     private final Sensitivity sensitivity;
     private final boolean isInvisible;
 
-    public PlayerPlateBlock(Sensitivity sensitivity, boolean invisible, Block copy, BlockSetType type, String name) {
+    public PlayerPlateBlock(ResourceKey<Block> key, Sensitivity sensitivity, boolean invisible, Block copy, BlockSetType type) {
         super(
                 type,
                 BlockBehaviour.Properties.ofFullCopy(copy)
                         .sound(SoundType.WOOD)
-                        .setId(ResourceKey.create(
-                                Registries.BLOCK,
-                                Identifier.fromNamespaceAndPath(PlayerPlates.MOD_ID, name)
-                        ))
+                        .setId(key)
         );
         this.sensitivity = sensitivity;
         this.isInvisible = invisible;
