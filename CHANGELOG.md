@@ -2,6 +2,11 @@
 
 
 All notable changes to this project will be documented in this file.
+
+## [26.1.2.2]
+
+- Now uses NaniteLib for registration
+
 ## [26.1.2.1]
 
 - Added new pressure plates

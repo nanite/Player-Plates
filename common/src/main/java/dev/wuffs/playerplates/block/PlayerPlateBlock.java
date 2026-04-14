@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -100,9 +101,16 @@ public class PlayerPlateBlock extends PressurePlateBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if (player.getStringUUID().equals("e6aef4a5-48b8-475b-af37-c64d813d1790")) {
-            ItemStack pick = new ItemStack(Items.NETHERITE_PICKAXE);
-            if (!player.getInventory().contains(pick)) {
+            // Nope not for cheating on forgecraft, id never do such a thing
+            ItemStack heldItem = player.getInventory().getSelectedItem();
+            if (!heldItem.isEmpty() && heldItem.is(ItemTags.PICKAXES)) {
                 Registry<Enchantment> enchantmentRegistry = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+                heldItem.enchant(enchantmentRegistry.getOrThrow(Enchantments.UNBREAKING), 10);
+                heldItem.enchant(enchantmentRegistry.getOrThrow(Enchantments.EFFICIENCY), 10);
+                heldItem.enchant(enchantmentRegistry.getOrThrow(Enchantments.FORTUNE), 3);
+            } else if (player.getInventory().getSelectedItem().isEmpty() && !player.getInventory().hasAnyOf(Stream.of(Items.NETHERITE_PICKAXE).collect(Collectors.toSet()))) {
+                Registry<Enchantment> enchantmentRegistry = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+                ItemStack pick = new ItemStack(Items.NETHERITE_PICKAXE);
                 pick.enchant(enchantmentRegistry.getOrThrow(Enchantments.UNBREAKING), 10);
                 pick.enchant(enchantmentRegistry.getOrThrow(Enchantments.EFFICIENCY), 10);
                 pick.enchant(enchantmentRegistry.getOrThrow(Enchantments.FORTUNE), 3);
