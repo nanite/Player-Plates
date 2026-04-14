@@ -3,7 +3,7 @@
   "id": "playerplates",
   "version": "${version}",
   "name": "Player Plates",
-  "description": "Obsidian pressure plates and mossy plates",
+  "description": "Adds a few extra pressure plates types that can be used to detect players, mobs, and items.",
   "authors": [
     "Gaz"
   ],

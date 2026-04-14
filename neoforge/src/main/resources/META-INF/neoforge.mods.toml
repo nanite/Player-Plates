@@ -9,7 +9,7 @@ version = "${version}"
 displayName = "Player Plates"
 authors = "Gaz"
 description = '''
-Obsidian pressure plates and mossy plates
+Adds a few extra pressure plates types that can be used to detect players, mobs, and items.
 '''
 credits = "ktraw2"
 #logoFile = ""
@@ -17,13 +17,13 @@ credits = "ktraw2"
 [[dependencies.playerplates]]
 modId = "neoforge"
 required = true
-versionRange = "[21.8,)"
+versionRange = "[26.1,26.2)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.playerplates]]
 modId = "minecraft"
 required = true
-versionRange = "[1.21.8,)"
+versionRange = "[26.1,26.2)"
 ordering = "NONE"
 side = "BOTH"
